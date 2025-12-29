@@ -202,20 +202,17 @@
                             <label class="fw-bold small text-danger">ป้ายกำกับ</label>
                             <select id="p_badge" class="form-select form-select-sm">
                                 <option value="">ทั่วไป</option>
-                                <option value="gift">🎁 Gift Set (Buffet - จัดเซตเอง)</option>
-                                <option value="hot">🔥 สินค้าขายดี (Hot)</option>
-                                <option value="new">✨ สินค้ามาใหม่ (New)</option>
-                                <option value="recom">⭐ สินค้าแนะนำ (Recommend)</option>
+                                <option value="gift">🎁 Gift Set (Buffet)</option>
+                                <option value="hot">🔥 ขายดี (Hot)</option>
+                                <option value="new">✨ มาใหม่ (New)</option>
+                                <option value="recom">⭐ แนะนำ (Recommend)</option>
                             </select>
                         </div>
 
                         <div class="col-md-12">
-                            <label class="fw-bold small">รูปภาพสินค้า</label>
+                            <label class="fw-bold small">รูปภาพสินค้า (1 รูป)</label>
                             <div class="upload-box py-1 position-relative" onclick="document.getElementById('p_file').click()" id="uploadZone" style="min-height: 120px;">
-                                <div id="uploadText" class="text-muted">
-                                    <i class="fas fa-cloud-upload-alt fa-2x mb-2"></i><br>
-                                    <small>คลิกเพื่ออัปโหลดรูปภาพ</small>
-                                </div>
+                                <div id="uploadText" class="text-muted"><i class="fas fa-cloud-upload-alt fa-2x mb-2"></i><br><small>คลิกอัปโหลดรูป</small></div>
                                 <input type="file" id="p_file" class="d-none" accept="image/*" onchange="previewImage(this)">
                                 <button id="btnRemoveImg" class="btn btn-sm btn-danger position-absolute top-0 end-0 m-2 d-none" onclick="event.stopPropagation(); removeImage();">x</button>
                             </div>
@@ -223,19 +220,23 @@
                         </div>
 
                         <div class="col-12">
+                            <label class="fw-bold small text-primary"><i class="fas fa-link"></i> ลิงก์ดูรูปเพิ่มเติม (Line Shop / Facebook)</label>
+                            <input type="text" id="p_link" class="form-control form-control-sm" placeholder="วางลิงก์ที่นี่ (ถ้ามี)...">
+                        </div>
+
+                        <div class="col-12">
                             <label class="fw-bold small">วงเงินเครดิต (เฉพาะ Gift Set)</label>
                             <input type="number" id="p_credit" class="form-control form-control-sm" placeholder="เช่น 1500">
-                            <small class="text-muted" style="font-size: 0.75rem;">*ใส่เฉพาะเมื่อเลือกป้ายกำกับเป็น Gift Set</small>
                         </div>
                         
                         <div class="col-12">
                             <label class="fw-bold small">รายละเอียด</label>
-                            <textarea id="p_desc" class="form-control form-control-sm" rows="3" placeholder="รายละเอียดสินค้า..."></textarea>
+                            <textarea id="p_desc" class="form-control form-control-sm" rows="3"></textarea>
                         </div>
                         
                         <div class="col-12">
                             <label class="fw-bold small">YouTube (ลิ้งค์)</label>
-                            <input type="text" id="p_video" class="form-control form-control-sm" placeholder="https://youtube.com/...">
+                            <input type="text" id="p_video" class="form-control form-control-sm">
                         </div>
 
                         <div class="col-12 mt-3">
@@ -244,16 +245,10 @@
                             </button>
                         </div>
                     </div>
-
                     <hr class="my-4">
-
                     <div>
-                        <div class="d-flex justify-content-between align-items-center mb-2">
-                            <h6 class="fw-bold text-secondary m-0">รายการสินค้าทั้งหมด</h6>
-                        </div>
-                        <div class="list-group shadow-sm small" id="adminProductList" style="max-height:300px; overflow-y:auto;">
-                            <div class="text-center py-4 text-muted">กำลังโหลด...</div>
-                        </div>
+                        <div class="d-flex justify-content-between align-items-center mb-2"><h6 class="fw-bold text-secondary m-0">รายการสินค้าทั้งหมด</h6></div>
+                        <div class="list-group shadow-sm small" id="adminProductList" style="max-height:300px; overflow-y:auto;"><div class="text-center py-4 text-muted">กำลังโหลด...</div></div>
                     </div>
                 </div>
 
@@ -288,8 +283,11 @@
     </div>
 
     <div class="modal fade" id="aboutModal" tabindex="-1"><div class="modal-dialog modal-dialog-centered"><div class="modal-content"><div class="modal-header bg-warning"><h5 class="modal-title fw-bold text-dark">เกี่ยวกับร้านค้า</h5><button type="button" class="btn-close" data-bs-dismiss="modal"></button></div><div class="modal-body text-center p-4"><img id="aboutLogo" src="" class="rounded-circle border border-3 border-warning mb-3" style="width:100px;height:100px;object-fit:cover;display:none;"><h4 id="aboutName" class="fw-bold"></h4><p id="aboutDesc" class="text-muted"></p><hr><p class="mb-2"><i class="fas fa-phone-alt text-warning"></i> <span id="aboutPhone"></span></p><p class="mb-3"><i class="fab fa-line text-success"></i> <span id="aboutLine"></span></p><div class="d-flex justify-content-center gap-2" id="aboutSocials"></div><div class="alert alert-light border text-start small mt-3" id="aboutPayment"></div></div></div></div></div>
+    
     <div class="modal fade" id="productDetailModal" tabindex="-1"><div class="modal-dialog modal-lg modal-dialog-centered"><div class="modal-content border-0 rounded-4 overflow-hidden"><div class="modal-header border-0 position-absolute end-0 top-0 z-3"><button type="button" class="btn-close bg-white p-2 m-2 shadow-sm rounded-circle" data-bs-dismiss="modal"></button></div><div class="modal-body p-0"><div class="row g-0"><div class="col-md-6 bg-light d-flex align-items-center justify-content-center"><img id="detailImg" src="" class="img-fluid" style="max-height:400px;" onerror="this.src='https://via.placeholder.com/400?text=No+Image'"></div><div class="col-md-6 p-4 d-flex flex-column"><span id="detailCat" class="badge bg-secondary align-self-start mb-2"></span><h3 id="detailName" class="fw-bold mb-3"></h3><div id="detailPriceBox" class="mb-3"></div><p id="detailDesc" class="text-muted flex-grow-1 small" style="white-space: pre-line;"></p><div id="detailVideo" class="mb-3"></div><button id="detailAddBtn" class="btn btn-warning w-100 py-3 fw-bold text-dark shadow-sm rounded-pill mt-auto">ใส่ตะกร้า</button></div></div></div></div></div></div>
+
     <div class="modal fade" id="buffetModal" tabindex="-1" data-bs-backdrop="static"><div class="modal-dialog modal-xl modal-dialog-centered modal-dialog-scrollable"><div class="modal-content"><div class="modal-header bg-warning"><h5 class="modal-title fw-bold"><i class="fas fa-gift"></i> จัดชุดของขวัญ: <span id="buffetName"></span></h5><button type="button" class="btn-close" data-bs-dismiss="modal"></button></div><div class="modal-body bg-light p-0"><div class="row g-0"><div class="col-lg-8 p-3" style="max-height: 70vh; overflow-y: auto;"><div class="card border-0 shadow-sm mb-3 sticky-top" style="top:0; z-index:5;"><div class="card-body p-2"><div class="d-flex justify-content-between align-items-center mb-2"><small>วงเงินเครดิต:</small> <span class="fw-bold text-primary" id="buffetTarget">0</span></div><input type="text" id="searchBuffet" class="form-control border-0" placeholder="🔍 ค้นหาสินค้าที่จะใส่กล่อง..." onkeyup="filterBuffetItems()"></div></div><div class="row g-2" id="buffetItemsList"></div></div><div class="col-lg-4 bg-white border-start p-0"><div class="control-panel-sticky p-3"><div class="buffet-progress"><div class="small fw-bold">มูลค่าสินค้าในกล่อง</div><h3 class="fw-bold text-primary mb-0"><span id="buffetCurrentTotal">0</span> / <span id="buffetMaxTotal">0</span></h3><div class="progress mt-2" style="height: 10px;"><div id="buffetProgressBar" class="progress-bar bg-success" style="width: 0%"></div></div><div class="small text-danger mt-1 fw-bold" id="buffetWarning"></div></div><hr><div class="mb-3"><label class="fw-bold small">เลือกแบบกล่อง</label><select id="buffetBoxStyle" class="form-select form-select-sm"><option value="โบว์แดง">🎁 กล่องพรีเมียม (โบว์แดง)</option><option value="โบว์ทอง">🎁 กล่องหรูหรา (โบว์ทอง)</option><option value="กล่องไม้">🪵 กล่องไม้ (วินเทจ)</option></select></div><div class="mb-3"><label class="fw-bold small">ข้อความการ์ด</label><textarea id="buffetCardMsg" class="form-control form-control-sm" rows="3" placeholder="ฝากข้อความถึงผู้รับ..."></textarea></div></div><div class="modal-footer-sticky mt-auto"><button class="btn btn-success w-100 fw-bold py-3 shadow-sm" id="btnFinishBuffet" onclick="finishBuffet()" disabled><i class="fas fa-check-circle"></i> ยืนยันการจัดเซต</button></div></div></div></div></div></div></div></div>
+
     <div class="modal fade" id="cartModal" tabindex="-1" data-bs-backdrop="static">
         <div class="modal-dialog modal-dialog-centered modal-xl">
             <div class="modal-content">
@@ -307,10 +305,10 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     
     <script type="module">
-        // ลบ Storage ออกแล้ว ใช้แค่ Firestore เพื่อแก้ปัญหา "ต้องจ่ายเงิน"
         import { initializeApp } from "https://www.gstatic.com/firebasejs/9.22.2/firebase-app.js";
         import { getFirestore, collection, addDoc, getDocs, doc, updateDoc, deleteDoc, onSnapshot, query, orderBy } from "https://www.gstatic.com/firebasejs/9.22.2/firebase-firestore.js";
 
+        // รหัสของคุณ (ใช้ได้เลย)
         const firebaseConfig = {
             apiKey: "AIzaSyAPeCIM3yiPXwBWUFZhKPvkeClgPlyb_YU",
             authDomain: "shopyamkae.firebaseapp.com",
@@ -321,7 +319,6 @@
             measurementId: "G-V58D283B28"
         };
 
-        // Initialize Firebase
         const app = initializeApp(firebaseConfig);
         const db = getFirestore(app);
 
@@ -338,12 +335,16 @@
         let currentBuffet = null;
         let buffetSelection = [];
         
-        window.tempImageFile = null;
-
         // --- Start Up ---
         document.addEventListener('DOMContentLoaded', async function() {
-            await Promise.all([loadProducts(), loadCategories()]);
-            loadShopConfig();
+            try {
+                await Promise.all([loadProducts(), loadCategories()]);
+                loadShopConfig();
+            } catch(e) {
+                console.error("Init Error:", e);
+                // ถ้าโหลดไม่ได้ แสดงว่ายังไม่ได้เปิด Rules
+                alert("⚠️ ไม่สามารถโหลดข้อมูลได้!\n\nกรุณาไปที่ Firebase Console > Firestore Database > Rules\nแล้วแก้เป็น 'allow read, write: if true;' แล้วกด Publish ครับ");
+            }
             document.getElementById('loader').classList.add('hide');
             document.getElementById('curYear').innerText = new Date().getFullYear();
         });
@@ -359,20 +360,16 @@
                 });
                 updateAllProductUI();
             } catch (error) {
-                console.error("Error loading products:", error);
+                throw error; // ส่ง error ไปให้ catch ด้านบนจัดการ
             }
         }
 
         async function loadCategories() {
-            try {
-                const q = query(collection(db, "categories"), orderBy("name"));
-                const snapshot = await getDocs(q);
-                window.categories = [];
-                snapshot.forEach(doc => window.categories.push({id: doc.id, ...doc.data()}));
-                renderCategoryList();
-            } catch (error) {
-                console.error("Error loading categories:", error);
-            }
+            const q = query(collection(db, "categories"), orderBy("name"));
+            const snapshot = await getDocs(q);
+            window.categories = [];
+            snapshot.forEach(doc => window.categories.push({id: doc.id, ...doc.data()}));
+            renderCategoryList();
         }
 
         window.loadOrders = function() {
@@ -388,7 +385,7 @@
                     const o = doc.data();
                     let itemsHtml = ""; 
                     if(o.items) o.items.forEach(i => itemsHtml += `<li>${i.name} x${i.qty || 1}</li>`);
-                    let slipHtml = o.slip ? `<a href="${o.slip}" target="_blank" class="btn btn-sm btn-info mt-2">ดูสลิป</a>` : `<span class="text-danger small">ไม่มีสลิป</span>`;
+                    let slipHtml = o.slip ? `<a href="#" onclick="var w=window.open();w.document.write('<img src=\\'${o.slip}\\' style=\\'width:100%\\'>');" class="btn btn-sm btn-info mt-2">ดูสลิป</a>` : `<span class="text-danger small">ไม่มีสลิป</span>`;
                     
                     div.innerHTML += `
                     <div class="order-card p-3 border rounded mb-2 bg-light">
@@ -408,54 +405,7 @@
             });
         }
 
-        // 1. Image Preview (แก้ไขให้เก็บค่าเป็น Base64 ใส่ Input Hidden ไว้เลย)
-        window.previewImage = function(input) {
-            if (input.files && input.files[0]) {
-                // ตรวจสอบขนาดไฟล์ ถ้าใหญ่เกินไปให้เตือน
-                if(input.files[0].size > 1000000) { // 1MB
-                    alert("⚠️ รูปภาพใหญ่เกินไป อาจทำให้บันทึกไม่ได้ กรุณาใช้รูปเล็กกว่า 1MB");
-                }
-
-                const reader = new FileReader();
-                reader.onload = function(e) {
-                    const zone = document.getElementById('uploadZone');
-                    zone.style.backgroundImage = `url(${e.target.result})`;
-                    zone.style.backgroundSize = 'contain';
-                    zone.style.backgroundRepeat = 'no-repeat';
-                    zone.style.backgroundPosition = 'center';
-                    document.getElementById('uploadText').style.display = 'none';
-                    document.getElementById('btnRemoveImg').classList.remove('d-none');
-                    
-                    // 🔥 เก็บค่ารูปภาพลงใน Input Hidden ทันที (ไม่ต้องรอ upload)
-                    document.getElementById('p_image_url').value = e.target.result;
-                }
-                reader.readAsDataURL(input.files[0]);
-            }
-        }
-
-        // 2. Remove Image
-        window.removeImage = function() {
-            document.getElementById('p_file').value = "";
-            const zone = document.getElementById('uploadZone');
-            zone.style.backgroundImage = 'none';
-            document.getElementById('uploadText').style.display = 'flex';
-            document.getElementById('btnRemoveImg').classList.add('d-none');
-            document.getElementById('p_image_url').value = ""; // เคลียร์ค่ารูป
-        }
-
-        // 3. Price Calculation
-        window.calcPrice = function() {
-            let full = Number(document.getElementById('p_price_full').value) || 0;
-            let disc = Number(document.getElementById('p_discount').value) || 0;
-            if (full > 0) {
-                let final = Math.floor(full - (full * disc / 100));
-                document.getElementById('p_price').value = final;
-            } else {
-                document.getElementById('p_price').value = 0;
-            }
-        }
-
-        // 4. Save Product (แก้ไขให้บันทึกง่ายๆ ไม่ต้องผ่าน Storage)
+        // --- Save Product (Database Mode: No Storage Required) ---
         window.saveProduct = async function() {
             const btn = document.getElementById('saveBtn');
             const name = document.getElementById('p_name').value.trim();
@@ -467,7 +417,6 @@
             btn.innerHTML = '<span class="spinner-border spinner-border-sm"></span> กำลังบันทึก...';
 
             try {
-                // ดึงรูปจาก Hidden Input เลย (เป็น Base64 ยาวๆ)
                 let finalImageUrl = document.getElementById('p_image_url').value;
 
                 const productData = {
@@ -479,6 +428,7 @@
                     badge: document.getElementById('p_badge').value || "",
                     desc: document.getElementById('p_desc').value || "",
                     video: document.getElementById('p_video').value || "",
+                    link: document.getElementById('p_link').value || "", // เพิ่มลิงก์สินค้า
                     credit: Number(document.getElementById('p_credit').value) || 0,
                     image: finalImageUrl,
                     updatedAt: new Date()
@@ -498,19 +448,55 @@
 
             } catch (e) {
                 console.error("Save Error:", e);
-                // แจ้งเตือนสาเหตุที่หมุนตลอด
-                alert("❌ บันทึกไม่สำเร็จ: " + e.message + "\n\n(กรุณาเช็ค Firestore Rules ว่าเปิดเป็น true หรือยัง)");
+                alert("❌ บันทึกไม่สำเร็จ: " + e.message + "\n\n(เช็คขนาดรูปอย่าให้เกิน 1MB และเช็ค Rules ใน Firestore)");
             } finally {
                 btn.disabled = false;
                 btn.innerHTML = '<i class="fas fa-save me-1"></i> บันทึกสินค้า';
             }
         }
 
-        // 5. Edit Mode
+        // --- Helper Functions ---
+        window.previewImage = function(input) {
+            if (input.files && input.files[0]) {
+                if(input.files[0].size > 1000000) { alert("⚠️ รูปใหญ่เกิน 1MB อาจบันทึกไม่ได้"); }
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    const zone = document.getElementById('uploadZone');
+                    zone.style.backgroundImage = `url(${e.target.result})`;
+                    zone.style.backgroundSize = 'contain';
+                    zone.style.backgroundRepeat = 'no-repeat';
+                    zone.style.backgroundPosition = 'center';
+                    document.getElementById('uploadText').style.display = 'none';
+                    document.getElementById('btnRemoveImg').classList.remove('d-none');
+                    document.getElementById('p_image_url').value = e.target.result; // Store Base64
+                }
+                reader.readAsDataURL(input.files[0]);
+            }
+        }
+
+        window.removeImage = function() {
+            document.getElementById('p_file').value = "";
+            const zone = document.getElementById('uploadZone');
+            zone.style.backgroundImage = 'none';
+            document.getElementById('uploadText').style.display = 'flex';
+            document.getElementById('btnRemoveImg').classList.add('d-none');
+            document.getElementById('p_image_url').value = ""; 
+        }
+
+        window.calcPrice = function() {
+            let full = Number(document.getElementById('p_price_full').value) || 0;
+            let disc = Number(document.getElementById('p_discount').value) || 0;
+            if (full > 0) {
+                let final = Math.floor(full - (full * disc / 100));
+                document.getElementById('p_price').value = final;
+            } else {
+                document.getElementById('p_price').value = 0;
+            }
+        }
+
         window.editProduct = function(id) {
             const p = window.products.find(x => x.id === id);
             if (!p) return;
-
             window.editId = id;
             
             document.getElementById('p_name').value = p.name;
@@ -521,9 +507,8 @@
             document.getElementById('p_badge').value = p.badge || "";
             document.getElementById('p_desc').value = p.desc || "";
             document.getElementById('p_video').value = p.video || "";
+            document.getElementById('p_link').value = p.link || "";
             document.getElementById('p_credit').value = p.credit || "";
-            
-            // ใส่รูปเดิมกลับเข้าไป
             document.getElementById('p_image_url').value = p.image || "";
 
             if (p.image) {
@@ -535,32 +520,21 @@
                 document.getElementById('uploadText').style.display = 'none';
                 document.getElementById('btnRemoveImg').classList.remove('d-none');
             } else {
-                const zone = document.getElementById('uploadZone');
-                zone.style.backgroundImage = 'none';
-                document.getElementById('uploadText').style.display = 'flex';
-                document.getElementById('btnRemoveImg').classList.add('d-none');
+                window.removeImage();
             }
 
             document.getElementById('editAlert').classList.remove('d-none');
             const btn = document.getElementById('saveBtn');
             btn.classList.replace('btn-warning', 'btn-primary');
             btn.innerHTML = '<i class="fas fa-save me-1"></i> บันทึกการแก้ไข';
-            
             document.getElementById('adminPanel').scrollIntoView({ behavior: 'smooth' });
         }
 
-        // 6. Cancel Edit
         window.cancelEdit = function() {
             window.editId = null;
-            
-            const ids = ['p_name', 'p_price', 'p_price_full', 'p_discount', 'p_category', 'p_badge', 'p_desc', 'p_video', 'p_credit', 'p_file', 'p_image_url'];
+            const ids = ['p_name', 'p_price', 'p_price_full', 'p_discount', 'p_category', 'p_badge', 'p_desc', 'p_video', 'p_link', 'p_credit', 'p_file', 'p_image_url'];
             ids.forEach(id => document.getElementById(id).value = "");
-
-            const zone = document.getElementById('uploadZone');
-            zone.style.backgroundImage = 'none';
-            document.getElementById('uploadText').style.display = 'flex';
-            document.getElementById('btnRemoveImg').classList.add('d-none');
-
+            window.removeImage();
             document.getElementById('editAlert').classList.add('d-none');
             const btn = document.getElementById('saveBtn');
             btn.classList.replace('btn-primary', 'btn-warning');
@@ -576,6 +550,66 @@
             }
         }
 
+        // --- Category Logic (Edit/Delete) ---
+        window.addCategory = async function() {
+            const n = document.getElementById('newCatName').value.trim();
+            if(n) {
+                try {
+                    await addDoc(collection(db, "categories"), { name: n });
+                    document.getElementById('newCatName').value = "";
+                    loadCategories();
+                } catch(e) { alert("เพิ่มหมวดหมู่ไม่ได้ (เช็ค Rules): " + e.message); }
+            }
+        }
+
+        window.deleteCategory = async function(id) {
+            if(confirm("ลบหมวดหมู่นี้?")) {
+                try {
+                    await deleteDoc(doc(db, "categories", id));
+                    loadCategories();
+                } catch(e) { alert(e.message); }
+            }
+        }
+
+        window.editCategory = async function(id) {
+            const cat = window.categories.find(c => c.id === id);
+            if (!cat) return;
+            const newName = prompt("แก้ไขชื่อหมวดหมู่:", cat.name);
+            if(newName && newName !== cat.name) {
+                try {
+                    await updateDoc(doc(db, "categories", id), { name: newName });
+                    loadCategories();
+                } catch(e) { alert(e.message); }
+            }
+        }
+
+        window.renderCategoryList = function() {
+            const nav = document.getElementById('userCatFilter'); 
+            const sel = document.getElementById('p_category'); 
+            const adminList = document.getElementById('adminCatList'); 
+            
+            nav.innerHTML = `<button class="cat-btn active" onclick="filterProducts('all', this)">ทั้งหมด</button>`; 
+            sel.innerHTML = `<option value="">เลือกหมวดหมู่</option>`; 
+            adminList.innerHTML = ""; 
+            
+            if(window.categories.length === 0) adminList.innerHTML = "<li class='list-group-item text-center text-muted'>ยังไม่มีหมวดหมู่</li>";
+            
+            window.categories.forEach((c) => {
+                nav.innerHTML += `<button class="cat-btn" onclick="filterProducts('${c.name}', this)">${c.name}</button>`; 
+                sel.innerHTML += `<option value="${c.name}">${c.name}</option>`; 
+                // เพิ่มปุ่ม Edit/Delete
+                adminList.innerHTML += `
+                <li class="list-group-item d-flex justify-content-between align-items-center">
+                    ${c.name}
+                    <div>
+                        <button class="btn btn-sm btn-warning me-1" onclick="editCategory('${c.id}')"><i class="fas fa-pen"></i></button>
+                        <button class="btn btn-sm btn-danger" onclick="deleteCategory('${c.id}')"><i class="fas fa-trash"></i></button>
+                    </div>
+                </li>`; 
+            });
+        }
+
+        // --- Order & Cart ---
         window.confirmOrderOnWeb = async function() {
             if(window.cart.length===0) return alert("ตะกร้าว่าง");
             const name = document.getElementById('cust_name').value;
@@ -583,13 +617,10 @@
             const addr = document.getElementById('cust_addr').value;
             
             if(!name || !tel || !addr) return alert("กรุณากรอกข้อมูลผู้รับให้ครบ");
-            
             document.getElementById('loader').classList.remove('hide');
 
             let slipUrl = "";
             const slipFile = document.getElementById('cust_slip').files[0];
-            
-            // อ่านสลิปเป็น Base64 (เหมือนรูปสินค้า)
             if(selectedPayment === 'transfer' && slipFile) {
                  const reader = new FileReader();
                  reader.readAsDataURL(slipFile);
@@ -614,14 +645,12 @@
                 status: 'new',
                 timestamp: new Date()
             };
-
             try {
                 await addDoc(collection(db, "orders"), orderData);
                 document.getElementById('loader').classList.add('hide');
                 window.cart = [];
                 updateCartUI();
                 bootstrap.Modal.getInstance(document.getElementById('cartModal')).hide();
-                
                 if(confirm("สั่งซื้อสำเร็จ! แจ้งไลน์ร้านค้า?")) {
                     if(shopConfig.lineId) {
                         let msg = `สั่งซื้อสินค้า\nคุณ: ${name}\nยอด: ${totalStr}\nรายการ:\n`;
@@ -635,68 +664,7 @@
             }
         }
 
-        // --- Category Logic (แก้ไขเพิ่ม Edit/Delete) ---
-        window.addCategory = async function() {
-            const n = document.getElementById('newCatName').value.trim();
-            if(n) {
-                try {
-                    await addDoc(collection(db, "categories"), { name: n });
-                    document.getElementById('newCatName').value = "";
-                    loadCategories();
-                } catch(e) { alert("เพิ่มไม่สำเร็จ (เช็ค Rules): " + e.message); }
-            }
-        }
-
-        window.deleteCategory = async function(id) {
-            if(confirm("ลบหมวดหมู่นี้?")) {
-                try {
-                    await deleteDoc(doc(db, "categories", id));
-                    loadCategories();
-                } catch(e) { alert(e.message); }
-            }
-        }
-
-        window.editCategory = async function(id) {
-            // ค้นหาชื่อเดิมจาก array
-            const cat = window.categories.find(c => c.id === id);
-            if (!cat) return;
-
-            const newName = prompt("แก้ไขชื่อหมวดหมู่:", cat.name);
-            if(newName && newName !== cat.name) {
-                try {
-                    await updateDoc(doc(db, "categories", id), { name: newName });
-                    loadCategories();
-                } catch(e) { alert(e.message); }
-            }
-        }
-
-        window.renderCategoryList = function() {
-            const nav = document.getElementById('userCatFilter'); 
-            const sel = document.getElementById('p_category'); 
-            const adminList = document.getElementById('adminCatList'); 
-            
-            nav.innerHTML = `<button class="cat-btn active" onclick="filterProducts('all', this)">ทั้งหมด</button>`; 
-            sel.innerHTML = `<option value="">เลือกหมวดหมู่</option>`; 
-            adminList.innerHTML = ""; 
-            
-            if(window.categories.length === 0) adminList.innerHTML = "<li class='list-group-item text-center text-muted'>ยังไม่มีหมวดหมู่</li>";
-            
-            window.categories.forEach((c) => {
-                nav.innerHTML += `<button class="cat-btn" onclick="filterProducts('${c.name}', this)">${c.name}</button>`; 
-                sel.innerHTML += `<option value="${c.name}">${c.name}</option>`; 
-                // เพิ่มปุ่ม Edit และ Delete ตรงนี้
-                adminList.innerHTML += `
-                <li class="list-group-item d-flex justify-content-between align-items-center">
-                    ${c.name}
-                    <div>
-                        <button class="btn btn-sm btn-warning me-1" onclick="editCategory('${c.id}')"><i class="fas fa-pen"></i></button>
-                        <button class="btn btn-sm btn-danger" onclick="deleteCategory('${c.id}')"><i class="fas fa-trash"></i></button>
-                    </div>
-                </li>`; 
-            });
-        }
-
-        // --- Standard Logic ---
+        // --- Standard UI ---
         window.updateAllProductUI = function() { distributeContent(window.products); renderAllProducts(window.products); renderAdminList(window.products); }
         window.distributeContent = function(list) { 
             const giftDiv = document.getElementById('listGift'); giftDiv.innerHTML = ""; 
@@ -741,7 +709,14 @@
         
         window.openAboutModal = function() { document.getElementById('aboutName').innerText=shopConfig.name; document.getElementById('aboutDesc').innerText=shopConfig.desc || "ยินดีต้อนรับ"; document.getElementById('aboutPhone').innerText=shopConfig.contact || "-"; document.getElementById('aboutLine').innerText=shopConfig.lineId || "-"; document.getElementById('aboutPayment').innerText=shopConfig.payment; if(shopConfig.logo){document.getElementById('aboutLogo').src=shopConfig.logo;document.getElementById('aboutLogo').style.display='inline-block';} var m=new bootstrap.Modal(document.getElementById('aboutModal')); m.show(); }
         window.filterProducts = function(cat, btn) { document.querySelectorAll('.cat-btn').forEach(b=>b.classList.remove('active')); btn.classList.add('active'); const h=document.getElementById('highlightZone'); const g=document.getElementById('giftSection'); if(cat==='all'){h.style.display='block'; g.style.display='block'; renderAllProducts(window.products);} else{h.style.display='none'; g.style.display='none'; renderAllProducts(window.products.filter(p=>(p.category||"").trim()===cat.trim()));} }
-        window.openDetail = function(id) { const p=window.products.find(x=>x.id===id); if(!p)return; document.getElementById('detailImg').src=p.image||"https://via.placeholder.com/300"; document.getElementById('detailName').innerText=p.name; document.getElementById('detailCat').innerText=p.category||"ทั่วไป"; let pr=p.price.toLocaleString()+" บาท"; if(p.badge==='gift'||p.badge==='promo') pr="โปรโมชั่น"; else if(p.price_full>p.price) pr=`<s class="text-muted me-2">${p.price_full}</s> <span class="text-danger fs-3 fw-bold">${p.price}.-</span>`; document.getElementById('detailPriceBox').innerHTML=pr; document.getElementById('detailDesc').innerText=p.desc||""; document.getElementById('detailVideo').innerHTML=p.video?`<div class="ratio ratio-16x9"><iframe src="${p.video.replace('watch?v=','embed/')}" allowfullscreen></iframe></div>`:""; const btn=document.getElementById('detailAddBtn'); if(p.price===0){btn.style.display='none';} else{ btn.style.display='block'; btn.onclick=function(){addToCart(id); var m=bootstrap.Modal.getInstance(document.getElementById('productDetailModal')); m.hide();}; } var m=new bootstrap.Modal(document.getElementById('productDetailModal')); m.show(); }
+        window.openDetail = function(id) { const p=window.products.find(x=>x.id===id); if(!p)return; document.getElementById('detailImg').src=p.image||"https://via.placeholder.com/300"; document.getElementById('detailName').innerText=p.name; document.getElementById('detailCat').innerText=p.category||"ทั่วไป"; let pr=p.price.toLocaleString()+" บาท"; if(p.badge==='gift'||p.badge==='promo') pr="โปรโมชั่น"; else if(p.price_full>p.price) pr=`<s class="text-muted me-2">${p.price_full}</s> <span class="text-danger fs-3 fw-bold">${p.price}.-</span>`; document.getElementById('detailPriceBox').innerHTML=pr; 
+        
+        // Show Link Button if exists
+        let linkBtn = "";
+        if(p.link) { linkBtn = `<a href="${p.link}" target="_blank" class="btn btn-outline-primary w-100 mb-2"><i class="fas fa-external-link-alt"></i> ดูรูปเพิ่มเติม (Line/FB)</a>`; }
+
+        document.getElementById('detailDesc').innerHTML = `<div class="mb-3 text-muted small" style="white-space: pre-line;">${p.desc||""}</div>${linkBtn}`;
+        document.getElementById('detailVideo').innerHTML=p.video?`<div class="ratio ratio-16x9"><iframe src="${p.video.replace('watch?v=','embed/')}" allowfullscreen></iframe></div>`:""; const btn=document.getElementById('detailAddBtn'); if(p.price===0){btn.style.display='none';} else{ btn.style.display='block'; btn.onclick=function(){addToCart(id); var m=bootstrap.Modal.getInstance(document.getElementById('productDetailModal')); m.hide();}; } var m=new bootstrap.Modal(document.getElementById('productDetailModal')); m.show(); }
 
         window.loadShopConfig = function() {
             document.getElementById('navShopName').innerText = shopConfig.name; document.getElementById('shopBankInfo').innerText = shopConfig.payment; document.getElementById('footerContact').innerText = shopConfig.contact || "-";
