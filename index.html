@@ -5,9 +5,16 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     
     <title>ร้านยามแก่ - ของขวัญและสินค้าเพื่อผู้สูงอายุที่คุณรัก</title>
-    <meta name="description" content="ร้านยามแก่ - คัดสรรสินค้าคุณภาพเพื่อผู้สูงอายุ ชุดของขวัญสุขภาพ ยาดม ไม้เท้า จัดส่งด่วนทั่วไทย">
+    <meta name="description" content="ร้านยามแก่ (Yamkae) - คัดสรรสินค้าคุณภาพเพื่อผู้สูงอายุ ชุดของขวัญสุขภาพ ยาดม ไม้เท้า และสินค้าสำหรับคนที่คุณรัก จัดส่งด่วนทั่วไทย บริการเก็บเงินปลายทาง">
+    <meta name="keywords" content="ของขวัญผู้สูงอายุ, สินค้าเพื่อสุขภาพ, ร้านยามแก่, Yamkae, ไม้เท้า, ยาดม, อาหารเสริมผู้สูงวัย, ชุดของขวัญปีใหม่">
+    <meta name="author" content="ร้านยามแก่">
+    <meta name="robots" content="index, follow">
+
     <meta property="og:title" content="ร้านยามแก่ - The Golden Age Selection">
+    <meta property="og:description" content="เลือกชุดของขวัญสุขภาพ จัดเซตเองได้ตามใจคุณ ส่งตรงถึงมือผู้รับ พร้อมบริการเก็บเงินปลายทาง">
     <meta property="og:image" content="https://images.unsplash.com/photo-1549465220-1a8b9238cd48?q=80&w=1470&auto=format&fit=crop">
+    <meta property="og:url" content="https://thabchai-muk.github.io/yamkae/">
+    <meta property="og:type" content="website">
 
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
@@ -16,6 +23,7 @@
     <style>
         :root { --pt-yellow: #F5DF4D; --pt-gray: #939597; --pt-dark: #333333; --pt-red: #dc3545; --pt-green: #198754; }
         body { font-family: 'Sarabun', sans-serif; background-color: #f8f9fa; color: var(--pt-dark); padding-bottom: 80px; }
+        
         .admin-only { display: none !important; } 
         .is-admin .admin-only { display: block !important; }
         .cursor-pointer { cursor: pointer; }
@@ -34,8 +42,6 @@
         .cat-btn { border: 1px solid #ddd; background: white; color: var(--pt-dark); border-radius: 50px; padding: 8px 25px; margin: 0 5px; font-weight: 600; transition: 0.2s; box-shadow: 0 2px 5px rgba(0,0,0,0.05); }
         .cat-btn.active, .cat-btn:hover { background: var(--pt-gray); color: var(--pt-yellow); border-color: var(--pt-gray); box-shadow: 0 4px 10px rgba(0,0,0,0.15); }
 
-        .product-card { border: 1px solid #eee; border-radius: 12px; background: white; box-shadow: 0 5px 15px rgba(0,0,0,0.05); transition: 0.3s; height: 100%; overflow: hidden; position: relative; cursor: pointer; }
-        .product-card:hover { transform: translateY(-5px); box-shadow: 0 15px 30px rgba(0,0,0,0.1); border-color: var(--pt-yellow); }
         .card-img-top { height: 200px; width: 100%; object-fit: contain; background: #fff; padding: 5px; }
         .badge-tag { position: absolute; top: 10px; left: 10px; padding: 4px 12px; border-radius: 30px; font-size: 0.75rem; color: white; font-weight: bold; text-transform: uppercase; box-shadow: 0 2px 5px rgba(0,0,0,0.2); z-index: 2; }
         
@@ -43,21 +49,25 @@
         .tag-hot { background: var(--pt-red); } .tag-new { background: var(--pt-green); } .tag-recom { background: #0d6efd; } .tag-promo { background: #6f42c1; color: white; }
 
         .checkout-card { background: white; padding: 20px; border-radius: 8px; border: 1px solid #eee; margin-bottom: 15px; }
+        .option-group { border: 1px solid #eee; border-radius: 8px; padding: 10px; margin-bottom: 10px; background: #fff; }
+
         .cart-float { position: fixed; bottom: 30px; right: 30px; background: var(--pt-yellow); color: var(--pt-gray); width: 65px; height: 65px; border-radius: 50%; display: flex; align-items: center; justify-content: center; box-shadow: 0 4px 20px rgba(245, 223, 77, 0.6); cursor: pointer; z-index: 1000; border: 4px solid white; font-weight: bold; font-size: 1.5rem; transition: 0.3s; }
         
         .admin-panel { display: none; background: #fff; border-top: 5px solid var(--pt-yellow); padding: 30px; margin: 40px auto; border-radius: 10px; max-width: 900px; box-shadow: 0 -10px 40px rgba(0,0,0,0.1); position: relative; }
         .admin-panel.minimized { height: 60px; overflow: hidden; padding: 10px 30px; bottom: 0; position: fixed; margin: 0; width: 100%; max-width: 100%; border-radius: 0; z-index: 9999; }
         .upload-box { border: 2px dashed var(--pt-gray); border-radius: 10px; padding: 20px; text-align: center; background: #f9f9f9; cursor: pointer; height: 150px; display: flex; flex-direction: column; justify-content: center; align-items: center; background-size: contain; background-repeat: no-repeat; background-position: center; overflow: hidden; }
 
-        .gift-section { background-color: #fff9c4; padding: 40px 0; margin-bottom: 40px; border-bottom: 4px solid var(--pt-yellow); }
+        /* Sections Header */
         .section-header { display: flex; align-items: center; margin-bottom: 20px; }
         .section-header h3 { font-weight: 800; color: var(--pt-gray); margin: 0; text-transform: uppercase; font-size: 1.5rem; }
         .section-line { flex-grow: 1; height: 2px; background: #eee; margin-left: 15px; }
         
+        /* Blog */
         .blog-card { border: none; border-radius: 12px; overflow: hidden; background: white; box-shadow: 0 5px 15px rgba(0,0,0,0.05); transition: 0.3s; h-100; border-left: 5px solid var(--pt-gray); cursor: pointer; }
         .blog-img { height: 200px; object-fit: cover; width: 100%; }
         .blog-content { padding: 25px; display: flex; flex-direction: column; height: 100%; }
 
+        /* Buffet */
         .buffet-item { cursor: pointer; border: 1px solid #eee; border-radius: 8px; overflow: hidden; transition: 0.2s; position: relative; background:white; }
         .buffet-item:hover { transform: translateY(-3px); box-shadow: 0 5px 15px rgba(0,0,0,0.1); border-color: var(--pt-yellow); }
         .buffet-item.selected { border: 2px solid var(--pt-green); background-color: #f0fff4; }
@@ -66,6 +76,7 @@
         .control-panel-sticky { position: sticky; top: 10px; height: calc(100vh - 100px); display: flex; flex-direction: column; overflow-y: auto; }
         .modal-footer-sticky { position: sticky; bottom: 0; background: white; padding: 15px; border-top: 1px solid #eee; z-index: 100; text-align: center; box-shadow: 0 -5px 15px rgba(0,0,0,0.05); }
 
+        /* Footer */
         footer { background-color: #343a40; color: #adb5bd; padding-top: 3rem; padding-bottom: 1.5rem; margin-top: 4rem; }
         footer h5 { color: var(--pt-yellow); font-weight: bold; margin-bottom: 1.2rem; }
         footer a { color: #adb5bd; text-decoration: none; transition: 0.3s; }
@@ -73,6 +84,70 @@
         footer .social-icon { font-size: 1.5rem; margin-right: 15px; color: #adb5bd; display: none; }
         footer .social-icon:hover { color: var(--pt-yellow); }
         footer hr { border-color: rgba(255,255,255,0.1); }
+
+        /* --- ✨ ส่วนที่เพิ่มใหม่: ความสวยงามและ Animation ✨ --- */
+        
+        /* 1. เอฟเฟกต์กระดุ๊กกระดิ๊กให้กล่องของขวัญ */
+        @keyframes float-gift {
+            0% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-5px) rotate(2deg); }
+            100% { transform: translateY(0px) rotate(0deg); }
+        }
+        
+        /* 2. พื้นหลังส่วน Gift Section ให้ดูพรีเมียมขึ้น */
+        .gift-section {
+            background: linear-gradient(135deg, #fff9c4 0%, #fff3e0 100%);
+            border-bottom: none;
+            position: relative;
+            overflow: hidden;
+            padding: 60px 0;
+        }
+        
+        /* ลายน้ำพื้นหลังจางๆ */
+        .gift-section::before {
+            content: '\f06b'; /* ไอคอนของขวัญ */
+            font-family: "Font Awesome 6 Free";
+            font-weight: 900;
+            position: absolute;
+            top: -20px;
+            right: -20px;
+            font-size: 15rem;
+            color: rgba(245, 223, 77, 0.15);
+            z-index: 0;
+            transform: rotate(-15deg);
+        }
+
+        /* 3. หัวข้อ Gift Header */
+        .gift-header-animate {
+            display: inline-block;
+            animation: float-gift 3s ease-in-out infinite;
+            background: white;
+            padding: 15px 40px;
+            border-radius: 50px;
+            box-shadow: 0 10px 25px rgba(245, 223, 77, 0.4);
+            border: 3px solid var(--pt-yellow);
+            position: relative;
+            z-index: 1;
+        }
+
+        /* 4. ปรับแต่งการ์ดสินค้าให้นุ่มนวล */
+        .product-card {
+            border: none;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+        .product-card:hover {
+            transform: translateY(-8px) scale(1.02);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.12);
+        }
+        
+        /* 5. ปุ่มกดให้น่ารักขึ้น */
+        .btn {
+            transition: transform 0.1s;
+        }
+        .btn:active {
+            transform: scale(0.95);
+        }
     </style>
 </head>
 <body id="body">
@@ -105,13 +180,20 @@
     </div>
 
     <div class="gift-section shadow-sm" id="giftSection">
-        <div class="container">
-            <div class="text-center mb-4">
-                <h2 class="fw-bold" style="color:var(--pt-gray)">🎁 ชุดของขวัญแทนใจ</h2>
-                <p class="text-muted">เลือกจัดเซตเองได้ตามใจคุณ ส่งตรงถึงมือผู้รับ</p>
+        <div class="container position-relative" style="z-index: 1;">
+            <div class="text-center mb-5">
+                <div class="gift-header-animate mb-3">
+                    <h2 class="fw-bold m-0" style="color:#5d4037"><i class="fas fa-gift me-2 text-warning"></i>ชุดของขวัญแทนใจ</h2>
+                </div>
+                <p class="text-muted fs-5">"ส่งความรัก...ผ่านสุขภาพที่ดี"</p>
+                <p class="small text-secondary">เลือกจัดเซตเองได้ตามใจคุณ หรือเลือกชุดแนะนำจากเรา ส่งตรงถึงมือผู้รับ</p>
             </div>
+            
             <div class="row g-4 justify-content-center px-3" id="listGift">
-                <div class="col-12 text-center text-muted py-3 small">กำลังโหลดสินค้าชุดของขวัญ...</div>
+                <div class="col-12 text-center text-muted py-3 small">
+                    <div class="spinner-border text-warning" role="status"></div>
+                    <div class="mt-2">กำลังโหลดสินค้าชุดของขวัญ...</div>
+                </div>
             </div>
         </div>
     </div>
@@ -140,7 +222,7 @@
             <div class="row g-4">
                 <div class="col-md-4">
                     <h5><i class="fas fa-store me-2"></i>ร้านยามแก่</h5>
-                    <p class="small">The Golden Age Selection - คัดสรรสิ่งที่ดีที่สุดเพื่อผู้สูงวัยที่คุณรัก</p>
+                    <p class="small">The Golden Age Selection - คัดสรรสิ่งที่ดีที่สุดเพื่อผู้สูงวัยที่คุณรัก มอบความสุขและสุขภาพที่ดีผ่านสินค้าคุณภาพ</p>
                 </div>
                 <div class="col-md-4">
                     <h5>เมนูลัด</h5>
@@ -526,8 +608,6 @@
             
             // Add buttons to About Modal
             const container = document.getElementById('aboutSocials');
-            // Logic to prevent duplicate buttons in modal (Simplified for this version: clear and rebuild in loadShopConfig could be better, but we'll append if not exist or just simple check)
-            // Better: Rebuild buttons in aboutSocials container every time
             if (elId === 'linkFb') container.innerHTML = ''; // Reset container on first call (assumed sequence)
             
             if (url) {
@@ -602,7 +682,14 @@
         function finishBuffet() { const boxStyle = document.getElementById('buffetBoxStyle').value; const cardMsg = document.getElementById('buffetCardMsg').value; const cartItem = { id: currentBuffet.id + "_" + Date.now(), name: currentBuffet.name, price: currentBuffet.price, image: currentBuffet.image, isGiftSet: true, items: buffetSelection, box: boxStyle, message: cardMsg, qty: 1 }; cart.push(cartItem); updateCartUI(); var m = bootstrap.Modal.getInstance(document.getElementById('buffetModal')); m.hide(); openCart(); }
         function toggleAdmin() { const p=prompt("รหัสร้าน:"); if(p==="1234") { document.getElementById('adminPanel').style.display="block"; document.getElementById('body').classList.add('is-admin'); document.getElementById('adminPanel').scrollIntoView(); } }
         function toggleAdminMin() { const p = document.getElementById('adminPanel'); p.classList.toggle('minimized'); }
-        function editProduct(id) { const p = products.find(x=>x.id===id); if(!p)return; document.getElementById('p_name').value=p.name; document.getElementById('p_price').value=p.price; document.getElementById('p_price_full').value=p.price_full||""; document.getElementById('p_discount').value=p.discount||""; document.getElementById('p_badge').value=p.badge||""; document.getElementById('p_category').value=p.category||""; document.getElementById('p_desc').value=p.desc||""; document.getElementById('p_image').value=p.image||""; document.getElementById('p_video').value=p.video||""; document.getElementById('p_credit').value=p.credit||""; if(p.image) { document.getElementById('uploadZone').style.backgroundImage = `url(${p.image})`; document.getElementById('uploadText').style.display = 'none'; } editId=id; document.getElementById('editAlert').classList.remove('d-none'); document.getElementById('adminPanel').classList.remove('minimized'); document.getElementById('adminPanel').style.display='block'; document.getElementById('adminPanel').scrollIntoView(); }
+        
+        function editProduct(id) { 
+            const p = products.find(x=>x.id===id); if(!p)return; 
+            document.getElementById('p_name').value=p.name; document.getElementById('p_price').value=p.price; document.getElementById('p_price_full').value=p.price_full||""; document.getElementById('p_discount').value=p.discount||""; document.getElementById('p_badge').value=p.badge||""; document.getElementById('p_category').value=p.category||""; document.getElementById('p_desc').value=p.desc||""; document.getElementById('p_image').value=p.image||""; document.getElementById('p_video').value=p.video||""; document.getElementById('p_credit').value=p.credit||""; 
+            if(p.image) { document.getElementById('uploadZone').style.backgroundImage = `url(${p.image})`; document.getElementById('uploadText').style.display = 'none'; } 
+            editId=id; document.getElementById('editAlert').classList.remove('d-none'); document.getElementById('adminPanel').classList.remove('minimized'); document.getElementById('adminPanel').style.display='block'; document.getElementById('adminPanel').scrollIntoView(); 
+        }
+        
         function deleteProduct(id) { if(confirm("ยืนยันลบสินค้านี้?")) { products = products.filter(p => p.id !== id); localStorage.setItem('products', JSON.stringify(products)); updateAllProductUI(); } }
         function cancelEdit() { editId=null; document.getElementById('p_name').value=""; document.getElementById('p_price').value=""; document.getElementById('p_price_full').value=""; document.getElementById('p_discount').value=""; document.getElementById('p_desc').value=""; document.getElementById('p_image').value=""; document.getElementById('p_file').value=""; document.getElementById('p_video').value=""; document.getElementById('p_credit').value=""; document.getElementById('editAlert').classList.add('d-none'); document.getElementById('uploadZone').style.backgroundImage = 'none'; document.getElementById('uploadText').style.display = 'block'; }
         function searchProduct() { const t=document.getElementById('searchInput').value.toLowerCase(); renderAllProducts(products.filter(p=>p.name.toLowerCase().includes(t))); }
