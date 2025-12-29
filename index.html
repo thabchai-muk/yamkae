@@ -42,7 +42,6 @@
         .blog-img { height: 200px; object-fit: cover; width: 100%; }
         .blog-content { padding: 25px; display: flex; flex-direction: column; height: 100%; }
         .buffet-item { cursor: pointer; border: 1px solid #eee; border-radius: 8px; overflow: hidden; transition: 0.2s; position: relative; background:white; }
-        .buffet-item:hover { transform: translateY(-3px); box-shadow: 0 5px 15px rgba(0,0,0,0.1); border-color: var(--pt-yellow); }
         .buffet-item.selected { border: 2px solid var(--pt-green); background-color: #f0fff4; }
         .buffet-item.selected::after { content: '\f00c'; font-family: 'Font Awesome 6 Free'; font-weight: 900; position: absolute; top: 5px; right: 5px; background: var(--pt-green); color: white; width: 25px; height: 25px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 14px; }
         .buffet-progress { background: #fff3cd; border: 1px dashed #ffc107; border-radius: 8px; padding: 15px; margin-bottom: 15px; text-align: center; }
@@ -170,37 +169,91 @@
                 </div>
                 
                 <div class="tab-pane fade" id="tab-product">
-                    <div id="editAlert" class="alert alert-warning d-none mb-3">กำลังแก้ไข... <button class="btn btn-sm btn-light border float-end" onclick="cancelEdit()">ยกเลิก</button></div>
+                    <div id="editAlert" class="alert alert-warning d-none mb-3">
+                        <i class="fas fa-edit"></i> กำลังแก้ไขสินค้า... 
+                        <button class="btn btn-sm btn-light border float-end fw-bold" onclick="cancelEdit()">ยกเลิก</button>
+                    </div>
+                    
                     <div class="row g-3">
-                        <div class="col-md-6"><label class="fw-bold small">ชื่อสินค้า</label><input type="text" id="p_name" class="form-control form-control-sm"></div>
-                        <div class="col-md-3"><label class="fw-bold small">ราคาเต็ม</label><input type="number" id="p_price_full" class="form-control form-control-sm" placeholder="0" oninput="calcPrice()"></div>
-                        <div class="col-md-3"><label class="fw-bold small">ลด %</label><input type="number" id="p_discount" class="form-control form-control-sm" placeholder="0" oninput="calcPrice()"></div>
-                        <div class="col-md-3"><label class="fw-bold small text-success">ขายจริง</label><input type="number" id="p_price" class="form-control form-control-sm" readonly></div>
-                        <div class="col-md-4"><label class="fw-bold small text-primary">หมวดหมู่</label><select id="p_category" class="form-select form-select-sm"><option value="">เลือกหมวด</option></select></div>
-                        <div class="col-md-8"><label class="fw-bold small text-danger">ป้ายกำกับ</label><select id="p_badge" class="form-select form-select-sm"><option value="">ทั่วไป</option><option value="gift">🎁 Gift Set (Buffet)</option><option value="hot">🔥 ขายดี</option><option value="new">✨ มาใหม่</option><option value="recom">⭐ แนะนำ</option></select></div>
-                        <div class="col-md-12">
-                            <label class="fw-bold small">รูปภาพ</label>
-                            <div class="upload-box py-1" onclick="document.getElementById('p_file').click()" id="uploadZone">
-                                <div id="uploadText" class="text-muted"><i class="fas fa-cloud-upload-alt fa-2x"></i><br><small>คลิกเลือกรูป</small></div>
-                                <input type="file" id="p_file" class="d-none" accept="image/*" onchange="previewImage(this)">
-                            </div>
-                            <input type="text" id="p_image" class="form-control mt-1 d-none" placeholder="URL รูป" readonly>
+                        <div class="col-md-6">
+                            <label class="fw-bold small">ชื่อสินค้า <span class="text-danger">*</span></label>
+                            <input type="text" id="p_name" class="form-control form-control-sm" placeholder="เช่น ยาดมสมุนไพร">
                         </div>
+                        <div class="col-md-2">
+                            <label class="fw-bold small">ราคาเต็ม</label>
+                            <input type="number" id="p_price_full" class="form-control form-control-sm" placeholder="0" oninput="calcPrice()">
+                        </div>
+                        <div class="col-md-2">
+                            <label class="fw-bold small">ลด %</label>
+                            <input type="number" id="p_discount" class="form-control form-control-sm" placeholder="0" oninput="calcPrice()">
+                        </div>
+                        <div class="col-md-2">
+                            <label class="fw-bold small text-success">ขายจริง</label>
+                            <input type="number" id="p_price" class="form-control form-control-sm bg-light" readonly>
+                        </div>
+
+                        <div class="col-md-4">
+                            <label class="fw-bold small text-primary">หมวดหมู่</label>
+                            <select id="p_category" class="form-select form-select-sm">
+                                <option value="">เลือกหมวด</option>
+                            </select>
+                        </div>
+                        <div class="col-md-8">
+                            <label class="fw-bold small text-danger">ป้ายกำกับ</label>
+                            <select id="p_badge" class="form-select form-select-sm">
+                                <option value="">ทั่วไป</option>
+                                <option value="gift">🎁 Gift Set (Buffet - จัดเซตเอง)</option>
+                                <option value="hot">🔥 สินค้าขายดี (Hot)</option>
+                                <option value="new">✨ สินค้ามาใหม่ (New)</option>
+                                <option value="recom">⭐ สินค้าแนะนำ (Recommend)</option>
+                            </select>
+                        </div>
+
+                        <div class="col-md-12">
+                            <label class="fw-bold small">รูปภาพสินค้า</label>
+                            <div class="upload-box py-1 position-relative" onclick="document.getElementById('p_file').click()" id="uploadZone" style="min-height: 120px;">
+                                <div id="uploadText" class="text-muted">
+                                    <i class="fas fa-cloud-upload-alt fa-2x mb-2"></i><br>
+                                    <small>คลิกเพื่ออัปโหลดรูปภาพ</small>
+                                </div>
+                                <input type="file" id="p_file" class="d-none" accept="image/*" onchange="previewImage(this)">
+                                <button id="btnRemoveImg" class="btn btn-sm btn-danger position-absolute top-0 end-0 m-2 d-none" onclick="event.stopPropagation(); removeImage();">x</button>
+                            </div>
+                            <input type="hidden" id="p_image_url">
+                        </div>
+
                         <div class="col-12">
                             <label class="fw-bold small">วงเงินเครดิต (เฉพาะ Gift Set)</label>
-                            <input type="number" id="p_credit" class="form-control form-control-sm" placeholder="เช่น 1800">
-                            <small class="text-muted">*ใส่เฉพาะเมื่อเลือกป้ายกำกับเป็น Gift Set</small>
+                            <input type="number" id="p_credit" class="form-control form-control-sm" placeholder="เช่น 1500">
+                            <small class="text-muted" style="font-size: 0.75rem;">*ใส่เฉพาะเมื่อเลือกป้ายกำกับเป็น Gift Set</small>
                         </div>
-                        <div class="col-12"><label class="fw-bold small">รายละเอียด</label><textarea id="p_desc" class="form-control form-control-sm" rows="2"></textarea></div>
-                        <div class="col-12"><label class="fw-bold small">YouTube</label><input type="text" id="p_video" class="form-control form-control-sm"></div>
-                        <div class="col-12 mt-2"><button id="saveBtn" onclick="saveProduct()" class="btn btn-warning w-100 btn-sm fw-bold">บันทึกสินค้า</button></div>
+                        
+                        <div class="col-12">
+                            <label class="fw-bold small">รายละเอียด</label>
+                            <textarea id="p_desc" class="form-control form-control-sm" rows="3" placeholder="รายละเอียดสินค้า..."></textarea>
+                        </div>
+                        
+                        <div class="col-12">
+                            <label class="fw-bold small">YouTube (ลิ้งค์)</label>
+                            <input type="text" id="p_video" class="form-control form-control-sm" placeholder="https://youtube.com/...">
+                        </div>
+
+                        <div class="col-12 mt-3">
+                            <button id="saveBtn" onclick="saveProduct()" class="btn btn-warning w-100 fw-bold py-2 shadow-sm">
+                                <i class="fas fa-save me-1"></i> บันทึกสินค้า
+                            </button>
+                        </div>
                     </div>
-                    <hr>
-                    <div class="mt-3">
+
+                    <hr class="my-4">
+
+                    <div>
                         <div class="d-flex justify-content-between align-items-center mb-2">
                             <h6 class="fw-bold text-secondary m-0">รายการสินค้าทั้งหมด</h6>
                         </div>
-                        <div class="list-group shadow-sm small" id="adminProductList" style="max-height:250px; overflow-y:auto;"></div>
+                        <div class="list-group shadow-sm small" id="adminProductList" style="max-height:300px; overflow-y:auto;">
+                            <div class="text-center py-4 text-muted">กำลังโหลด...</div>
+                        </div>
                     </div>
                 </div>
 
@@ -269,7 +322,7 @@
             storageBucket: "shopyamkae.firebasestorage.app",
             messagingSenderId: "914541091094",
             appId: "1:914541091094:web:eabccc6bdcfb6e1c1fd837",
-            measurementId: "G-V58D283B283B28"
+            measurementId: "G-V58D283B28"
         };
 
         // Initialize Firebase
@@ -301,7 +354,7 @@
 
         // --- Firebase Functions ---
         async function loadProducts() {
-            const q = query(collection(db, "products"), orderBy("name"));
+            const q = query(collection(db, "products"), orderBy("createdAt", "desc"));
             const snapshot = await getDocs(q);
             window.products = [];
             snapshot.forEach(doc => {
@@ -347,43 +400,159 @@
             });
         }
 
-        window.saveProduct = async function() {
-            const name = document.getElementById('p_name').value.trim();
-            if(!name) return alert("กรุณาใส่ชื่อสินค้า");
-            
-            // Upload Image if selected
-            let imageUrl = document.getElementById('p_image').value;
-            if (tempImageFile) {
-                const storageRef = ref(storage, 'products/' + Date.now() + '_' + tempImageFile.name);
-                await uploadBytes(storageRef, tempImageFile);
-                imageUrl = await getDownloadURL(storageRef);
+        // --- (UPDATED) Product Management Logic ---
+        
+        // 1. Image Preview
+        window.previewImage = function(input) {
+            if (input.files && input.files[0]) {
+                tempImageFile = input.files[0];
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    const zone = document.getElementById('uploadZone');
+                    zone.style.backgroundImage = `url(${e.target.result})`;
+                    zone.style.backgroundSize = 'contain';
+                    zone.style.backgroundRepeat = 'no-repeat';
+                    zone.style.backgroundPosition = 'center';
+                    document.getElementById('uploadText').style.display = 'none';
+                    document.getElementById('btnRemoveImg').classList.remove('d-none');
+                }
+                reader.readAsDataURL(input.files[0]);
             }
+        }
 
-            const productData = {
-                name,
-                price: Number(document.getElementById('p_price').value) || 0,
-                price_full: Number(document.getElementById('p_price_full').value) || 0,
-                discount: Number(document.getElementById('p_discount').value) || 0,
-                category: document.getElementById('p_category').value,
-                badge: document.getElementById('p_badge').value,
-                desc: document.getElementById('p_desc').value,
-                video: document.getElementById('p_video').value,
-                credit: Number(document.getElementById('p_credit').value) || 0,
-                image: imageUrl
-            };
+        // 2. Remove Image
+        window.removeImage = function() {
+            tempImageFile = null;
+            document.getElementById('p_file').value = "";
+            const zone = document.getElementById('uploadZone');
+            zone.style.backgroundImage = 'none';
+            document.getElementById('uploadText').style.display = 'flex';
+            document.getElementById('btnRemoveImg').classList.add('d-none');
+            // Note: We keep p_image_url until save is pressed, or clear it if needed logic requires
+        }
+
+        // 3. Price Calculation
+        window.calcPrice = function() {
+            let full = Number(document.getElementById('p_price_full').value) || 0;
+            let disc = Number(document.getElementById('p_discount').value) || 0;
+            if (full > 0) {
+                let final = Math.floor(full - (full * disc / 100));
+                document.getElementById('p_price').value = final;
+            } else {
+                document.getElementById('p_price').value = 0;
+            }
+        }
+
+        // 4. Save Product (Create/Update)
+        window.saveProduct = async function() {
+            const btn = document.getElementById('saveBtn');
+            const name = document.getElementById('p_name').value.trim();
+            const price = Number(document.getElementById('p_price').value) || 0;
+
+            if (!name) return alert("กรุณาระบุชื่อสินค้า");
+            if (price < 0) return alert("ราคาต้องไม่ติดลบ");
+
+            btn.disabled = true;
+            btn.innerHTML = '<span class="spinner-border spinner-border-sm"></span> กำลังบันทึก...';
 
             try {
+                let finalImageUrl = document.getElementById('p_image_url').value;
+                
+                // Upload new image if selected
+                if (tempImageFile) {
+                    const fileName = `products/${Date.now()}_${tempImageFile.name}`;
+                    const storageRef = ref(storage, fileName);
+                    await uploadBytes(storageRef, tempImageFile);
+                    finalImageUrl = await getDownloadURL(storageRef);
+                }
+
+                const productData = {
+                    name: name,
+                    price: price,
+                    price_full: Number(document.getElementById('p_price_full').value) || 0,
+                    discount: Number(document.getElementById('p_discount').value) || 0,
+                    category: document.getElementById('p_category').value || "ทั่วไป",
+                    badge: document.getElementById('p_badge').value || "",
+                    desc: document.getElementById('p_desc').value || "",
+                    video: document.getElementById('p_video').value || "",
+                    credit: Number(document.getElementById('p_credit').value) || 0,
+                    image: finalImageUrl,
+                    updatedAt: new Date()
+                };
+
                 if (window.editId) {
                     await updateDoc(doc(db, "products", window.editId), productData);
+                    alert("✅ แก้ไขข้อมูลสินค้าเรียบร้อย");
                 } else {
+                    productData.createdAt = new Date();
                     await addDoc(collection(db, "products"), productData);
+                    alert("✅ เพิ่มสินค้าใหม่เรียบร้อย");
                 }
-                alert("บันทึกสินค้าสำเร็จ!");
-                cancelEdit();
-                loadProducts(); // Reload
+
+                cancelEdit(); 
+                loadProducts(); 
+
             } catch (e) {
-                alert("เกิดข้อผิดพลาด: " + e.message);
+                console.error("Error saving product: ", e);
+                alert("❌ เกิดข้อผิดพลาดในการบันทึก: " + e.message);
+            } finally {
+                btn.disabled = false;
+                btn.innerHTML = '<i class="fas fa-save me-1"></i> บันทึกสินค้า';
             }
+        }
+
+        // 5. Edit Mode
+        window.editProduct = function(id) {
+            const p = window.products.find(x => x.id === id);
+            if (!p) return;
+
+            window.editId = id;
+            
+            document.getElementById('p_name').value = p.name;
+            document.getElementById('p_price').value = p.price;
+            document.getElementById('p_price_full').value = p.price_full || "";
+            document.getElementById('p_discount').value = p.discount || "";
+            document.getElementById('p_category').value = p.category || "";
+            document.getElementById('p_badge').value = p.badge || "";
+            document.getElementById('p_desc').value = p.desc || "";
+            document.getElementById('p_video').value = p.video || "";
+            document.getElementById('p_credit').value = p.credit || "";
+            document.getElementById('p_image_url').value = p.image || "";
+
+            if (p.image) {
+                const zone = document.getElementById('uploadZone');
+                zone.style.backgroundImage = `url(${p.image})`;
+                zone.style.backgroundSize = 'contain';
+                zone.style.backgroundRepeat = 'no-repeat';
+                zone.style.backgroundPosition = 'center';
+                document.getElementById('uploadText').style.display = 'none';
+                document.getElementById('btnRemoveImg').classList.remove('d-none');
+            } else {
+                window.removeImage();
+            }
+
+            document.getElementById('editAlert').classList.remove('d-none');
+            const btn = document.getElementById('saveBtn');
+            btn.classList.replace('btn-warning', 'btn-primary');
+            btn.innerHTML = '<i class="fas fa-save me-1"></i> บันทึกการแก้ไข';
+            
+            document.getElementById('adminPanel').scrollIntoView({ behavior: 'smooth' });
+        }
+
+        // 6. Cancel Edit
+        window.cancelEdit = function() {
+            window.editId = null;
+            tempImageFile = null;
+            
+            const ids = ['p_name', 'p_price', 'p_price_full', 'p_discount', 'p_category', 'p_badge', 'p_desc', 'p_video', 'p_credit', 'p_file', 'p_image_url'];
+            ids.forEach(id => document.getElementById(id).value = "");
+
+            window.removeImage();
+
+            document.getElementById('editAlert').classList.add('d-none');
+            const btn = document.getElementById('saveBtn');
+            btn.classList.replace('btn-primary', 'btn-warning');
+            btn.innerHTML = '<i class="fas fa-save me-1"></i> บันทึกสินค้า';
         }
 
         window.deleteProduct = async function(id) {
@@ -454,19 +623,6 @@
             }
         }
 
-        // --- UI & Helper Functions ---
-        window.previewImage = function(input) {
-            if (input.files && input.files[0]) {
-                tempImageFile = input.files[0];
-                const reader = new FileReader();
-                reader.onload = function(e) {
-                    document.getElementById('uploadZone').style.backgroundImage = `url(${e.target.result})`;
-                    document.getElementById('uploadText').style.display = 'none';
-                }
-                reader.readAsDataURL(input.files[0]);
-            }
-        }
-
         window.renderCategoryList = function() {
             const nav = document.getElementById('userCatFilter'); 
             const sel = document.getElementById('p_category'); 
@@ -527,13 +683,11 @@
         // Admin & Config Logic
         window.toggleAdmin = function() { const p=prompt("รหัสร้าน:"); if(p==="1234") { document.getElementById('adminPanel').style.display="block"; document.getElementById('body').classList.add('is-admin'); document.getElementById('adminPanel').scrollIntoView(); loadOrders(); } }
         window.toggleAdminMin = function() { document.getElementById('adminPanel').classList.toggle('minimized'); }
-        window.editProduct = function(id) { const p = window.products.find(x=>x.id===id); if(!p)return; document.getElementById('p_name').value=p.name; document.getElementById('p_price').value=p.price; document.getElementById('p_price_full').value=p.price_full||""; document.getElementById('p_discount').value=p.discount||""; document.getElementById('p_badge').value=p.badge||""; document.getElementById('p_category').value=p.category||""; document.getElementById('p_desc').value=p.desc||""; document.getElementById('p_image').value=p.image||""; document.getElementById('p_video').value=p.video||""; document.getElementById('p_credit').value=p.credit||""; if(p.image) { document.getElementById('uploadZone').style.backgroundImage = `url(${p.image})`; document.getElementById('uploadText').style.display = 'none'; } window.editId=id; document.getElementById('editAlert').classList.remove('d-none'); document.getElementById('adminPanel').classList.remove('minimized'); document.getElementById('adminPanel').style.display='block'; document.getElementById('adminPanel').scrollIntoView(); }
-        window.cancelEdit = function() { window.editId=null; tempImageFile=null; document.getElementById('p_name').value=""; document.getElementById('p_price').value=""; document.getElementById('p_price_full').value=""; document.getElementById('p_discount').value=""; document.getElementById('p_desc').value=""; document.getElementById('p_image').value=""; document.getElementById('p_file').value=""; document.getElementById('p_video').value=""; document.getElementById('p_credit').value=""; document.getElementById('editAlert').classList.add('d-none'); document.getElementById('uploadZone').style.backgroundImage = 'none'; document.getElementById('uploadText').style.display = 'block'; }
+        
         window.searchProduct = function() { const t=document.getElementById('searchInput').value.toLowerCase(); renderAllProducts(window.products.filter(p=>p.name.toLowerCase().includes(t))); }
         
         window.openAboutModal = function() { document.getElementById('aboutName').innerText=shopConfig.name; document.getElementById('aboutDesc').innerText=shopConfig.desc || "ยินดีต้อนรับ"; document.getElementById('aboutPhone').innerText=shopConfig.contact || "-"; document.getElementById('aboutLine').innerText=shopConfig.lineId || "-"; document.getElementById('aboutPayment').innerText=shopConfig.payment; if(shopConfig.logo){document.getElementById('aboutLogo').src=shopConfig.logo;document.getElementById('aboutLogo').style.display='inline-block';} var m=new bootstrap.Modal(document.getElementById('aboutModal')); m.show(); }
         window.filterProducts = function(cat, btn) { document.querySelectorAll('.cat-btn').forEach(b=>b.classList.remove('active')); btn.classList.add('active'); const h=document.getElementById('highlightZone'); const g=document.getElementById('giftSection'); if(cat==='all'){h.style.display='block'; g.style.display='block'; renderAllProducts(window.products);} else{h.style.display='none'; g.style.display='none'; renderAllProducts(window.products.filter(p=>(p.category||"").trim()===cat.trim()));} }
-        window.calcPrice = function() { let full = Number(document.getElementById('p_price_full').value)||0; let disc = Number(document.getElementById('p_discount').value)||0; document.getElementById('p_price').value = Math.floor(full - (full * disc / 100)); }
         window.openDetail = function(id) { const p=window.products.find(x=>x.id===id); if(!p)return; document.getElementById('detailImg').src=p.image||"https://via.placeholder.com/300"; document.getElementById('detailName').innerText=p.name; document.getElementById('detailCat').innerText=p.category||"ทั่วไป"; let pr=p.price.toLocaleString()+" บาท"; if(p.badge==='gift'||p.badge==='promo') pr="โปรโมชั่น"; else if(p.price_full>p.price) pr=`<s class="text-muted me-2">${p.price_full}</s> <span class="text-danger fs-3 fw-bold">${p.price}.-</span>`; document.getElementById('detailPriceBox').innerHTML=pr; document.getElementById('detailDesc').innerText=p.desc||""; document.getElementById('detailVideo').innerHTML=p.video?`<div class="ratio ratio-16x9"><iframe src="${p.video.replace('watch?v=','embed/')}" allowfullscreen></iframe></div>`:""; const btn=document.getElementById('detailAddBtn'); if(p.price===0){btn.style.display='none';} else{ btn.style.display='block'; btn.onclick=function(){addToCart(id); var m=bootstrap.Modal.getInstance(document.getElementById('productDetailModal')); m.hide();}; } var m=new bootstrap.Modal(document.getElementById('productDetailModal')); m.show(); }
 
         window.loadShopConfig = function() {
