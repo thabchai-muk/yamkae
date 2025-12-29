@@ -288,11 +288,8 @@
     </div>
 
     <div class="modal fade" id="aboutModal" tabindex="-1"><div class="modal-dialog modal-dialog-centered"><div class="modal-content"><div class="modal-header bg-warning"><h5 class="modal-title fw-bold text-dark">เกี่ยวกับร้านค้า</h5><button type="button" class="btn-close" data-bs-dismiss="modal"></button></div><div class="modal-body text-center p-4"><img id="aboutLogo" src="" class="rounded-circle border border-3 border-warning mb-3" style="width:100px;height:100px;object-fit:cover;display:none;"><h4 id="aboutName" class="fw-bold"></h4><p id="aboutDesc" class="text-muted"></p><hr><p class="mb-2"><i class="fas fa-phone-alt text-warning"></i> <span id="aboutPhone"></span></p><p class="mb-3"><i class="fab fa-line text-success"></i> <span id="aboutLine"></span></p><div class="d-flex justify-content-center gap-2" id="aboutSocials"></div><div class="alert alert-light border text-start small mt-3" id="aboutPayment"></div></div></div></div></div>
-    
     <div class="modal fade" id="productDetailModal" tabindex="-1"><div class="modal-dialog modal-lg modal-dialog-centered"><div class="modal-content border-0 rounded-4 overflow-hidden"><div class="modal-header border-0 position-absolute end-0 top-0 z-3"><button type="button" class="btn-close bg-white p-2 m-2 shadow-sm rounded-circle" data-bs-dismiss="modal"></button></div><div class="modal-body p-0"><div class="row g-0"><div class="col-md-6 bg-light d-flex align-items-center justify-content-center"><img id="detailImg" src="" class="img-fluid" style="max-height:400px;" onerror="this.src='https://via.placeholder.com/400?text=No+Image'"></div><div class="col-md-6 p-4 d-flex flex-column"><span id="detailCat" class="badge bg-secondary align-self-start mb-2"></span><h3 id="detailName" class="fw-bold mb-3"></h3><div id="detailPriceBox" class="mb-3"></div><p id="detailDesc" class="text-muted flex-grow-1 small" style="white-space: pre-line;"></p><div id="detailVideo" class="mb-3"></div><button id="detailAddBtn" class="btn btn-warning w-100 py-3 fw-bold text-dark shadow-sm rounded-pill mt-auto">ใส่ตะกร้า</button></div></div></div></div></div></div>
-
     <div class="modal fade" id="buffetModal" tabindex="-1" data-bs-backdrop="static"><div class="modal-dialog modal-xl modal-dialog-centered modal-dialog-scrollable"><div class="modal-content"><div class="modal-header bg-warning"><h5 class="modal-title fw-bold"><i class="fas fa-gift"></i> จัดชุดของขวัญ: <span id="buffetName"></span></h5><button type="button" class="btn-close" data-bs-dismiss="modal"></button></div><div class="modal-body bg-light p-0"><div class="row g-0"><div class="col-lg-8 p-3" style="max-height: 70vh; overflow-y: auto;"><div class="card border-0 shadow-sm mb-3 sticky-top" style="top:0; z-index:5;"><div class="card-body p-2"><div class="d-flex justify-content-between align-items-center mb-2"><small>วงเงินเครดิต:</small> <span class="fw-bold text-primary" id="buffetTarget">0</span></div><input type="text" id="searchBuffet" class="form-control border-0" placeholder="🔍 ค้นหาสินค้าที่จะใส่กล่อง..." onkeyup="filterBuffetItems()"></div></div><div class="row g-2" id="buffetItemsList"></div></div><div class="col-lg-4 bg-white border-start p-0"><div class="control-panel-sticky p-3"><div class="buffet-progress"><div class="small fw-bold">มูลค่าสินค้าในกล่อง</div><h3 class="fw-bold text-primary mb-0"><span id="buffetCurrentTotal">0</span> / <span id="buffetMaxTotal">0</span></h3><div class="progress mt-2" style="height: 10px;"><div id="buffetProgressBar" class="progress-bar bg-success" style="width: 0%"></div></div><div class="small text-danger mt-1 fw-bold" id="buffetWarning"></div></div><hr><div class="mb-3"><label class="fw-bold small">เลือกแบบกล่อง</label><select id="buffetBoxStyle" class="form-select form-select-sm"><option value="โบว์แดง">🎁 กล่องพรีเมียม (โบว์แดง)</option><option value="โบว์ทอง">🎁 กล่องหรูหรา (โบว์ทอง)</option><option value="กล่องไม้">🪵 กล่องไม้ (วินเทจ)</option></select></div><div class="mb-3"><label class="fw-bold small">ข้อความการ์ด</label><textarea id="buffetCardMsg" class="form-control form-control-sm" rows="3" placeholder="ฝากข้อความถึงผู้รับ..."></textarea></div></div><div class="modal-footer-sticky mt-auto"><button class="btn btn-success w-100 fw-bold py-3 shadow-sm" id="btnFinishBuffet" onclick="finishBuffet()" disabled><i class="fas fa-check-circle"></i> ยืนยันการจัดเซต</button></div></div></div></div></div></div></div></div>
-
     <div class="modal fade" id="cartModal" tabindex="-1" data-bs-backdrop="static">
         <div class="modal-dialog modal-dialog-centered modal-xl">
             <div class="modal-content">
@@ -310,9 +307,9 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     
     <script type="module">
+        // ลบ Storage ออกแล้ว ใช้แค่ Firestore เพื่อแก้ปัญหา "ต้องจ่ายเงิน"
         import { initializeApp } from "https://www.gstatic.com/firebasejs/9.22.2/firebase-app.js";
         import { getFirestore, collection, addDoc, getDocs, doc, updateDoc, deleteDoc, onSnapshot, query, orderBy } from "https://www.gstatic.com/firebasejs/9.22.2/firebase-firestore.js";
-        import { getStorage, ref, uploadBytes, getDownloadURL } from "https://www.gstatic.com/firebasejs/9.22.2/firebase-storage.js";
 
         const firebaseConfig = {
             apiKey: "AIzaSyAPeCIM3yiPXwBWUFZhKPvkeClgPlyb_YU",
@@ -327,7 +324,6 @@
         // Initialize Firebase
         const app = initializeApp(firebaseConfig);
         const db = getFirestore(app);
-        const storage = getStorage(app);
 
         // --- Global Variables ---
         window.products = [];
@@ -408,14 +404,18 @@
                 });
             }, (error) => {
                 console.error("Error watching orders:", error);
-                div.innerHTML = "<p class='text-danger text-center'>โหลดข้อมูลล้มเหลว (เช็ค Permissions)</p>";
+                div.innerHTML = "<p class='text-danger text-center'>โหลดข้อมูลล้มเหลว (เช็ค Firestore Rules)</p>";
             });
         }
 
-        // 1. Image Preview
+        // 1. Image Preview (แก้ไขให้เก็บค่าเป็น Base64 ใส่ Input Hidden ไว้เลย)
         window.previewImage = function(input) {
             if (input.files && input.files[0]) {
-                window.tempImageFile = input.files[0];
+                // ตรวจสอบขนาดไฟล์ ถ้าใหญ่เกินไปให้เตือน
+                if(input.files[0].size > 1000000) { // 1MB
+                    alert("⚠️ รูปภาพใหญ่เกินไป อาจทำให้บันทึกไม่ได้ กรุณาใช้รูปเล็กกว่า 1MB");
+                }
+
                 const reader = new FileReader();
                 reader.onload = function(e) {
                     const zone = document.getElementById('uploadZone');
@@ -425,6 +425,9 @@
                     zone.style.backgroundPosition = 'center';
                     document.getElementById('uploadText').style.display = 'none';
                     document.getElementById('btnRemoveImg').classList.remove('d-none');
+                    
+                    // 🔥 เก็บค่ารูปภาพลงใน Input Hidden ทันที (ไม่ต้องรอ upload)
+                    document.getElementById('p_image_url').value = e.target.result;
                 }
                 reader.readAsDataURL(input.files[0]);
             }
@@ -432,12 +435,12 @@
 
         // 2. Remove Image
         window.removeImage = function() {
-            window.tempImageFile = null;
             document.getElementById('p_file').value = "";
             const zone = document.getElementById('uploadZone');
             zone.style.backgroundImage = 'none';
             document.getElementById('uploadText').style.display = 'flex';
             document.getElementById('btnRemoveImg').classList.add('d-none');
+            document.getElementById('p_image_url').value = ""; // เคลียร์ค่ารูป
         }
 
         // 3. Price Calculation
@@ -452,7 +455,7 @@
             }
         }
 
-        // 4. Save Product
+        // 4. Save Product (แก้ไขให้บันทึกง่ายๆ ไม่ต้องผ่าน Storage)
         window.saveProduct = async function() {
             const btn = document.getElementById('saveBtn');
             const name = document.getElementById('p_name').value.trim();
@@ -464,14 +467,8 @@
             btn.innerHTML = '<span class="spinner-border spinner-border-sm"></span> กำลังบันทึก...';
 
             try {
+                // ดึงรูปจาก Hidden Input เลย (เป็น Base64 ยาวๆ)
                 let finalImageUrl = document.getElementById('p_image_url').value;
-                
-                if (window.tempImageFile) {
-                    const fileName = `products/${Date.now()}_${window.tempImageFile.name}`;
-                    const storageRef = ref(storage, fileName);
-                    await uploadBytes(storageRef, window.tempImageFile);
-                    finalImageUrl = await getDownloadURL(storageRef);
-                }
 
                 const productData = {
                     name: name,
@@ -502,7 +499,7 @@
             } catch (e) {
                 console.error("Save Error:", e);
                 // แจ้งเตือนสาเหตุที่หมุนตลอด
-                alert("❌ บันทึกไม่สำเร็จ: " + e.message + "\n\n⚠️ (กรุณาไปเปิดสิทธิ์ Rules ใน Firebase Console ให้เป็น true ด้วยครับ)");
+                alert("❌ บันทึกไม่สำเร็จ: " + e.message + "\n\n(กรุณาเช็ค Firestore Rules ว่าเปิดเป็น true หรือยัง)");
             } finally {
                 btn.disabled = false;
                 btn.innerHTML = '<i class="fas fa-save me-1"></i> บันทึกสินค้า';
@@ -525,6 +522,8 @@
             document.getElementById('p_desc').value = p.desc || "";
             document.getElementById('p_video').value = p.video || "";
             document.getElementById('p_credit').value = p.credit || "";
+            
+            // ใส่รูปเดิมกลับเข้าไป
             document.getElementById('p_image_url').value = p.image || "";
 
             if (p.image) {
@@ -536,7 +535,10 @@
                 document.getElementById('uploadText').style.display = 'none';
                 document.getElementById('btnRemoveImg').classList.remove('d-none');
             } else {
-                window.removeImage();
+                const zone = document.getElementById('uploadZone');
+                zone.style.backgroundImage = 'none';
+                document.getElementById('uploadText').style.display = 'flex';
+                document.getElementById('btnRemoveImg').classList.add('d-none');
             }
 
             document.getElementById('editAlert').classList.remove('d-none');
@@ -550,12 +552,14 @@
         // 6. Cancel Edit
         window.cancelEdit = function() {
             window.editId = null;
-            window.tempImageFile = null;
             
             const ids = ['p_name', 'p_price', 'p_price_full', 'p_discount', 'p_category', 'p_badge', 'p_desc', 'p_video', 'p_credit', 'p_file', 'p_image_url'];
             ids.forEach(id => document.getElementById(id).value = "");
 
-            window.removeImage();
+            const zone = document.getElementById('uploadZone');
+            zone.style.backgroundImage = 'none';
+            document.getElementById('uploadText').style.display = 'flex';
+            document.getElementById('btnRemoveImg').classList.add('d-none');
 
             document.getElementById('editAlert').classList.add('d-none');
             const btn = document.getElementById('saveBtn');
@@ -584,12 +588,21 @@
 
             let slipUrl = "";
             const slipFile = document.getElementById('cust_slip').files[0];
+            
+            // อ่านสลิปเป็น Base64 (เหมือนรูปสินค้า)
             if(selectedPayment === 'transfer' && slipFile) {
-                const storageRef = ref(storage, 'slips/' + Date.now() + '_' + slipFile.name);
-                await uploadBytes(storageRef, slipFile);
-                slipUrl = await getDownloadURL(storageRef);
+                 const reader = new FileReader();
+                 reader.readAsDataURL(slipFile);
+                 reader.onload = async function () {
+                     slipUrl = reader.result;
+                     await submitOrder(name, tel, addr, slipUrl);
+                 };
+            } else {
+                await submitOrder(name, tel, addr, "");
             }
-
+        }
+        
+        async function submitOrder(name, tel, addr, slipUrl) {
             const totalStr = document.getElementById('sumTotal').innerText;
             const orderData = {
                 customer: { name, tel, address: addr },
@@ -630,7 +643,7 @@
                     await addDoc(collection(db, "categories"), { name: n });
                     document.getElementById('newCatName').value = "";
                     loadCategories();
-                } catch(e) { alert("เพิ่มไม่สำเร็จ: " + e.message); }
+                } catch(e) { alert("เพิ่มไม่สำเร็จ (เช็ค Rules): " + e.message); }
             }
         }
 
