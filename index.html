@@ -265,7 +265,7 @@
                     </div>
                     <hr>
                     <label class="fw-bold small mb-2">รายการหมวดหมู่ที่มี:</label>
-                    <ul class="list-group shadow-sm small" id="adminCatList"><li class="list-group-item text-center text-muted">ยังไม่มีหมวดหมู่</li></ul>
+                    <ul class="list-group shadow-sm small" id="adminCatList"><li class="list-group-item text-center text-muted">กำลังโหลดหมวดหมู่...</li></ul>
                 </div>
 
                 <div class="tab-pane fade" id="tab-shop">
@@ -314,7 +314,6 @@
         import { getFirestore, collection, addDoc, getDocs, doc, updateDoc, deleteDoc, onSnapshot, query, orderBy } from "https://www.gstatic.com/firebasejs/9.22.2/firebase-firestore.js";
         import { getStorage, ref, uploadBytes, getDownloadURL } from "https://www.gstatic.com/firebasejs/9.22.2/firebase-storage.js";
 
-        // 🔥 ใส่รหัสของคุณให้แล้วนะครับ
         const firebaseConfig = {
             apiKey: "AIzaSyAPeCIM3yiPXwBWUFZhKPvkeClgPlyb_YU",
             authDomain: "shopyamkae.firebaseapp.com",
@@ -343,7 +342,6 @@
         let currentBuffet = null;
         let buffetSelection = [];
         
-        // ตัวแปรเก็บไฟล์รูปภาพ
         window.tempImageFile = null;
 
         // --- Start Up ---
@@ -356,20 +354,29 @@
 
         // --- Firebase Functions ---
         async function loadProducts() {
-            const q = query(collection(db, "products"), orderBy("createdAt", "desc"));
-            const snapshot = await getDocs(q);
-            window.products = [];
-            snapshot.forEach(doc => {
-                window.products.push({ id: doc.id, ...doc.data() });
-            });
-            updateAllProductUI();
+            try {
+                const q = query(collection(db, "products"), orderBy("createdAt", "desc"));
+                const snapshot = await getDocs(q);
+                window.products = [];
+                snapshot.forEach(doc => {
+                    window.products.push({ id: doc.id, ...doc.data() });
+                });
+                updateAllProductUI();
+            } catch (error) {
+                console.error("Error loading products:", error);
+            }
         }
 
         async function loadCategories() {
-            const snapshot = await getDocs(collection(db, "categories"));
-            window.categories = [];
-            snapshot.forEach(doc => window.categories.push({id: doc.id, ...doc.data()}));
-            renderCategoryList();
+            try {
+                const q = query(collection(db, "categories"), orderBy("name"));
+                const snapshot = await getDocs(q);
+                window.categories = [];
+                snapshot.forEach(doc => window.categories.push({id: doc.id, ...doc.data()}));
+                renderCategoryList();
+            } catch (error) {
+                console.error("Error loading categories:", error);
+            }
         }
 
         window.loadOrders = function() {
@@ -399,11 +406,12 @@
                         <div class="d-flex justify-content-between align-items-center">${slipHtml}</div>
                     </div>`;
                 });
+            }, (error) => {
+                console.error("Error watching orders:", error);
+                div.innerHTML = "<p class='text-danger text-center'>โหลดข้อมูลล้มเหลว (เช็ค Permissions)</p>";
             });
         }
 
-        // --- (UPDATED) Product Management Logic (แก้ให้แล้ว) ---
-        
         // 1. Image Preview
         window.previewImage = function(input) {
             if (input.files && input.files[0]) {
@@ -444,22 +452,20 @@
             }
         }
 
-        // 4. Save Product (Create/Update)
+        // 4. Save Product
         window.saveProduct = async function() {
             const btn = document.getElementById('saveBtn');
             const name = document.getElementById('p_name').value.trim();
             const price = Number(document.getElementById('p_price').value) || 0;
 
             if (!name) return alert("กรุณาระบุชื่อสินค้า");
-            if (price < 0) return alert("ราคาต้องไม่ติดลบ");
-
+            
             btn.disabled = true;
             btn.innerHTML = '<span class="spinner-border spinner-border-sm"></span> กำลังบันทึก...';
 
             try {
                 let finalImageUrl = document.getElementById('p_image_url').value;
                 
-                // Upload new image if selected
                 if (window.tempImageFile) {
                     const fileName = `products/${Date.now()}_${window.tempImageFile.name}`;
                     const storageRef = ref(storage, fileName);
@@ -483,7 +489,7 @@
 
                 if (window.editId) {
                     await updateDoc(doc(db, "products", window.editId), productData);
-                    alert("✅ แก้ไขข้อมูลสินค้าเรียบร้อย");
+                    alert("✅ แก้ไขข้อมูลเรียบร้อย");
                 } else {
                     productData.createdAt = new Date();
                     await addDoc(collection(db, "products"), productData);
@@ -494,9 +500,9 @@
                 loadProducts(); 
 
             } catch (e) {
-                console.error("Error saving product: ", e);
+                console.error("Save Error:", e);
                 // แจ้งเตือนสาเหตุที่หมุนตลอด
-                alert("❌ บันทึกไม่สำเร็จ: " + e.message + "\n\n⚠️ ถ้าขึ้น Permission denied ต้องไปแก้ Rules ใน Firebase Console ครับ");
+                alert("❌ บันทึกไม่สำเร็จ: " + e.message + "\n\n⚠️ (กรุณาไปเปิดสิทธิ์ Rules ใน Firebase Console ให้เป็น true ด้วยครับ)");
             } finally {
                 btn.disabled = false;
                 btn.innerHTML = '<i class="fas fa-save me-1"></i> บันทึกสินค้า';
@@ -559,8 +565,10 @@
 
         window.deleteProduct = async function(id) {
             if(confirm("ยืนยันลบสินค้านี้?")) {
-                await deleteDoc(doc(db, "products", id));
-                loadProducts();
+                try {
+                    await deleteDoc(doc(db, "products", id));
+                    loadProducts();
+                } catch(e) { alert(e.message); }
             }
         }
 
@@ -574,7 +582,6 @@
             
             document.getElementById('loader').classList.remove('hide');
 
-            // Upload Slip
             let slipUrl = "";
             const slipFile = document.getElementById('cust_slip').files[0];
             if(selectedPayment === 'transfer' && slipFile) {
@@ -597,15 +604,14 @@
 
             try {
                 await addDoc(collection(db, "orders"), orderData);
-                
                 document.getElementById('loader').classList.add('hide');
                 window.cart = [];
                 updateCartUI();
                 bootstrap.Modal.getInstance(document.getElementById('cartModal')).hide();
                 
-                if(confirm("สั่งซื้อสำเร็จ! ขอบคุณที่ใช้บริการ\nกดตกลงเพื่อแจ้งทาง Line หรือกดเพื่อปิด")) {
+                if(confirm("สั่งซื้อสำเร็จ! แจ้งไลน์ร้านค้า?")) {
                     if(shopConfig.lineId) {
-                        let msg = `สั่งซื้อสินค้าใหม่\nคุณ: ${name}\nยอดสุทธิ: ${totalStr}\n(${selectedPayment==='cod'?'ปลายทาง':'โอนเงิน'})\nรายการ:\n`;
+                        let msg = `สั่งซื้อสินค้า\nคุณ: ${name}\nยอด: ${totalStr}\nรายการ:\n`;
                         orderData.items.forEach(i => msg += `- ${i.name} x${i.qty}\n`);
                         window.open(`https://line.me/ti/p/~${shopConfig.lineId}?text=${encodeURIComponent(msg)}`, '_blank');
                     }
@@ -616,12 +622,38 @@
             }
         }
 
+        // --- Category Logic (แก้ไขเพิ่ม Edit/Delete) ---
         window.addCategory = async function() {
             const n = document.getElementById('newCatName').value.trim();
             if(n) {
-                await addDoc(collection(db, "categories"), { name: n });
-                document.getElementById('newCatName').value = "";
-                loadCategories();
+                try {
+                    await addDoc(collection(db, "categories"), { name: n });
+                    document.getElementById('newCatName').value = "";
+                    loadCategories();
+                } catch(e) { alert("เพิ่มไม่สำเร็จ: " + e.message); }
+            }
+        }
+
+        window.deleteCategory = async function(id) {
+            if(confirm("ลบหมวดหมู่นี้?")) {
+                try {
+                    await deleteDoc(doc(db, "categories", id));
+                    loadCategories();
+                } catch(e) { alert(e.message); }
+            }
+        }
+
+        window.editCategory = async function(id) {
+            // ค้นหาชื่อเดิมจาก array
+            const cat = window.categories.find(c => c.id === id);
+            if (!cat) return;
+
+            const newName = prompt("แก้ไขชื่อหมวดหมู่:", cat.name);
+            if(newName && newName !== cat.name) {
+                try {
+                    await updateDoc(doc(db, "categories", id), { name: newName });
+                    loadCategories();
+                } catch(e) { alert(e.message); }
             }
         }
 
@@ -639,11 +671,19 @@
             window.categories.forEach((c) => {
                 nav.innerHTML += `<button class="cat-btn" onclick="filterProducts('${c.name}', this)">${c.name}</button>`; 
                 sel.innerHTML += `<option value="${c.name}">${c.name}</option>`; 
-                adminList.innerHTML += `<li class="list-group-item d-flex justify-content-between align-items-center">${c.name}</li>`; 
+                // เพิ่มปุ่ม Edit และ Delete ตรงนี้
+                adminList.innerHTML += `
+                <li class="list-group-item d-flex justify-content-between align-items-center">
+                    ${c.name}
+                    <div>
+                        <button class="btn btn-sm btn-warning me-1" onclick="editCategory('${c.id}')"><i class="fas fa-pen"></i></button>
+                        <button class="btn btn-sm btn-danger" onclick="deleteCategory('${c.id}')"><i class="fas fa-trash"></i></button>
+                    </div>
+                </li>`; 
             });
         }
 
-        // --- Standard Logic (from original code, kept same logic but cleaned up) ---
+        // --- Standard Logic ---
         window.updateAllProductUI = function() { distributeContent(window.products); renderAllProducts(window.products); renderAdminList(window.products); }
         window.distributeContent = function(list) { 
             const giftDiv = document.getElementById('listGift'); giftDiv.innerHTML = ""; 
@@ -675,14 +715,12 @@
         window.openCart = function() { updateCartUI(); var myModal=new bootstrap.Modal(document.getElementById('cartModal')); myModal.show(); }
         window.calculateFinalTotal = function(sub) { document.getElementById('sumSubtotal').innerText = sub.toLocaleString() + ".-"; document.getElementById('sumShipping').innerText = shippingCost===0?"ฟรี":shippingCost+".-"; document.getElementById('sumTotal').innerText = (sub+shippingCost).toLocaleString()+".-"; }
         
-        // Buffet Logic
         window.openBuffetModal = function(id) { const p = window.products.find(x => x.id === id); if(!p) return; currentBuffet = p; buffetSelection = []; document.getElementById('buffetName').innerText = p.name; document.getElementById('buffetTarget').innerText = (p.credit || 1800).toLocaleString(); document.getElementById('buffetMaxTotal').innerText = (p.credit || 1800).toLocaleString(); renderBuffetItems(); updateBuffetUI(); var m = new bootstrap.Modal(document.getElementById('buffetModal')); m.show(); }
         window.renderBuffetItems = function() { const container = document.getElementById('buffetItemsList'); container.innerHTML = ""; const searchTerm = document.getElementById('searchBuffet').value.toLowerCase(); window.products.forEach(p => { if(p.badge === 'gift') return; if(searchTerm && !p.name.toLowerCase().includes(searchTerm)) return; const isSelected = buffetSelection.find(x => x.id === p.id); const activeClass = isSelected ? 'selected' : ''; const btnText = isSelected ? '<i class="fas fa-check"></i> เลือกแล้ว' : '+ เลือก'; const btnColor = isSelected ? 'btn-success' : 'btn-outline-primary'; container.innerHTML += `<div class="col-md-4 col-6"><div class="buffet-item p-2 rounded h-100 ${activeClass}" onclick="toggleBuffetItem('${p.id}')"><img src="${p.image}" class="w-100 rounded mb-2" style="height:80px; object-fit:cover;"><div class="small fw-bold text-truncate">${p.name}</div><div class="d-flex justify-content-between align-items-center mt-2"><span class="text-danger small fw-bold">${p.price}.-</span><button class="btn btn-sm ${btnColor} py-0 px-2 small">${btnText}</button></div></div></div>`; }); }
         window.toggleBuffetItem = function(id) { const p = window.products.find(x => x.id === id); const index = buffetSelection.findIndex(x => x.id === id); if(index > -1) { buffetSelection.splice(index, 1); } else { buffetSelection.push(p); } updateBuffetUI(); renderBuffetItems(); }
         window.updateBuffetUI = function() { const limit = parseInt(currentBuffet.credit || 1800); const currentTotal = buffetSelection.reduce((sum, item) => sum + item.price, 0); document.getElementById('buffetCurrentTotal').innerText = currentTotal.toLocaleString(); const percent = Math.min((currentTotal / limit) * 100, 100); const bar = document.getElementById('buffetProgressBar'); bar.style.width = percent + "%"; const btn = document.getElementById('btnFinishBuffet'); const warn = document.getElementById('buffetWarning'); if(currentTotal > limit) { bar.classList.add('bg-danger'); bar.classList.remove('bg-success'); warn.innerText = `เกินงบไป ${(currentTotal - limit).toLocaleString()} บาท!`; btn.disabled = true; } else { bar.classList.add('bg-success'); bar.classList.remove('bg-danger'); if(currentTotal === 0) { warn.innerText = "กรุณาเลือกสินค้า"; btn.disabled = true; } else { warn.innerText = ""; btn.disabled = false; } } }
         window.finishBuffet = function() { const boxStyle = document.getElementById('buffetBoxStyle').value; const cardMsg = document.getElementById('buffetCardMsg').value; const cartItem = { id: currentBuffet.id + "_" + Date.now(), name: currentBuffet.name, price: currentBuffet.price, image: currentBuffet.image, isGiftSet: true, items: buffetSelection, box: boxStyle, message: cardMsg, qty: 1 }; window.cart.push(cartItem); updateCartUI(); var m = bootstrap.Modal.getInstance(document.getElementById('buffetModal')); m.hide(); openCart(); }
         
-        // Admin & Config Logic
         window.toggleAdmin = function() { const p=prompt("รหัสร้าน:"); if(p==="1234") { document.getElementById('adminPanel').style.display="block"; document.getElementById('body').classList.add('is-admin'); document.getElementById('adminPanel').scrollIntoView(); loadOrders(); } }
         window.toggleAdminMin = function() { document.getElementById('adminPanel').classList.toggle('minimized'); }
         
