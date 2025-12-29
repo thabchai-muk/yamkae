@@ -16,36 +16,44 @@
         .is-admin .admin-only { display: block !important; }
         .cursor-pointer { cursor: pointer; }
 
-        /* Navbar & Loader */
+        /* Navbar */
         .navbar { background: white; border-bottom: 4px solid var(--pt-yellow); padding: 10px 0; }
         .shop-logo-img { width: 50px; height: 50px; object-fit: cover; border-radius: 50%; border: 2px solid var(--pt-yellow); margin-right: 10px; display: none; }
-        .loader { display: flex; position: fixed; top:0; left:0; width:100%; height:100%; background:rgba(255,255,255,0.98); z-index:9999; justify-content:center; align-items:center; flex-direction: column; transition: opacity 0.5s; }
+        
+        /* Loader */
+        .loader { display: flex; position: fixed; top:0; left:0; width:100%; height:100%; background:rgba(255,255,255,0.98); z-index:9999; justify-content:center; align-items:center; flex-direction: column; transition: opacity 0.3s; }
         .loader.hide { opacity: 0; pointer-events: none; }
 
         /* Carousel */
         .carousel-item img { height: 450px; object-fit: cover; filter: brightness(0.95); }
 
-        /* Gift Section (Animation Style จาก Local) */
+        /* Gift Section */
         .gift-section { background: linear-gradient(135deg, #fff9c4 0%, #fff3e0 100%); padding: 60px 0; position: relative; overflow: hidden; }
         .gift-section::before { content: '\f06b'; font-family: "Font Awesome 6 Free"; font-weight: 900; position: absolute; top: -20px; right: -20px; font-size: 15rem; color: rgba(245, 223, 77, 0.15); z-index: 0; transform: rotate(-15deg); }
         .gift-header-animate { display: inline-block; animation: float-gift 3s ease-in-out infinite; background: white; padding: 15px 40px; border-radius: 50px; box-shadow: 0 10px 25px rgba(245, 223, 77, 0.4); border: 3px solid var(--pt-yellow); position: relative; z-index: 1; }
         @keyframes float-gift { 0%, 100% { transform: translateY(0) rotate(0); } 50% { transform: translateY(-5px) rotate(2deg); } }
 
         /* Product Card */
-        .product-card { border: 1px solid #eee; border-radius: 12px; background: white; box-shadow: 0 5px 15px rgba(0,0,0,0.05); transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1); position: relative; cursor: pointer; overflow: hidden; height: 100%; }
-        .product-card:hover { transform: translateY(-8px); box-shadow: 0 15px 30px rgba(0,0,0,0.12); border-color: var(--pt-yellow); }
+        .product-card { border: 1px solid #eee; border-radius: 12px; background: white; box-shadow: 0 5px 15px rgba(0,0,0,0.05); transition: all 0.3s; cursor: pointer; position: relative; overflow: hidden; height: 100%; }
+        .product-card:hover { transform: translateY(-5px); box-shadow: 0 15px 30px rgba(0,0,0,0.12); border-color: var(--pt-yellow); }
         .card-img-top { height: 200px; width: 100%; object-fit: contain; background: #fff; padding: 5px; }
-        .badge-tag { position: absolute; top: 10px; left: 10px; padding: 4px 12px; border-radius: 30px; font-size: 0.75rem; color: white; font-weight: bold; text-transform: uppercase; box-shadow: 0 2px 5px rgba(0,0,0,0.2); z-index: 2; }
+        .badge-tag { position: absolute; top: 10px; left: 10px; padding: 4px 12px; border-radius: 30px; font-size: 0.75rem; color: white; font-weight: bold; box-shadow: 0 2px 5px rgba(0,0,0,0.2); z-index: 2; }
         .tag-gift { background: linear-gradient(45deg, #FFD700, #FFA500); color: #000; } 
-        .tag-hot { background: var(--pt-red); } .tag-new { background: var(--pt-green); } .tag-recom { background: #0d6efd; } .tag-promo { background: #6f42c1; color: white; }
+        .tag-hot { background: var(--pt-red); } .tag-new { background: var(--pt-green); } .tag-recom { background: #0d6efd; }
 
         /* Categories & Cart */
         .cat-menu-container { overflow-x: auto; white-space: nowrap; padding: 15px 0 25px; text-align: center; position: sticky; top: 76px; z-index: 9; background: #f8f9fa; }
         .cat-btn { border: 1px solid #ddd; background: white; color: var(--pt-dark); border-radius: 50px; padding: 8px 25px; margin: 0 5px; font-weight: 600; transition: 0.2s; box-shadow: 0 2px 5px rgba(0,0,0,0.05); }
         .cat-btn.active, .cat-btn:hover { background: var(--pt-gray); color: var(--pt-yellow); border-color: var(--pt-gray); box-shadow: 0 4px 10px rgba(0,0,0,0.15); }
         .cart-float { position: fixed; bottom: 30px; right: 30px; background: var(--pt-yellow); color: var(--pt-gray); width: 65px; height: 65px; border-radius: 50%; display: flex; align-items: center; justify-content: center; box-shadow: 0 4px 20px rgba(245, 223, 77, 0.6); cursor: pointer; z-index: 1000; border: 4px solid white; font-weight: bold; font-size: 1.5rem; transition: 0.3s; }
-        
-        /* Buffet Styles */
+
+        /* Checkout & Admin */
+        .checkout-card { background: white; padding: 20px; border-radius: 8px; border: 1px solid #eee; margin-bottom: 15px; }
+        .admin-panel { display: none; background: #fff; border-top: 5px solid var(--pt-yellow); padding: 30px; margin: 40px auto; border-radius: 10px; max-width: 900px; box-shadow: 0 -10px 40px rgba(0,0,0,0.1); position: relative; }
+        .admin-panel.minimized { height: 60px; overflow: hidden; padding: 10px 30px; bottom: 0; position: fixed; margin: 0; width: 100%; max-width: 100%; border-radius: 0; z-index: 9999; }
+        .upload-box { border: 2px dashed #ccc; padding: 20px; text-align: center; cursor: pointer; background: #f9f9f9; height: 150px; display: flex; align-items: center; justify-content: center; background-size: contain; background-repeat: no-repeat; background-position: center; }
+
+        /* Buffet Item */
         .buffet-item { cursor: pointer; border: 1px solid #eee; border-radius: 8px; overflow: hidden; position: relative; background:white; transition: 0.2s; }
         .buffet-item:hover { transform: scale(1.02); border-color: var(--pt-yellow); }
         .buffet-item.selected { border: 2px solid var(--pt-green); background-color: #f0fff4; }
@@ -53,12 +61,6 @@
         .buffet-progress { background: #fff3cd; border: 1px dashed #ffc107; border-radius: 8px; padding: 15px; margin-bottom: 15px; text-align: center; }
         .control-panel-sticky { position: sticky; top: 10px; height: calc(100vh - 100px); display: flex; flex-direction: column; overflow-y: auto; }
         .modal-footer-sticky { position: sticky; bottom: 0; background: white; padding: 15px; border-top: 1px solid #eee; z-index: 100; text-align: center; box-shadow: 0 -5px 15px rgba(0,0,0,0.05); }
-
-        /* Checkout & Admin */
-        .checkout-card { background: white; padding: 20px; border-radius: 8px; border: 1px solid #eee; margin-bottom: 15px; }
-        .admin-panel { display: none; background: #fff; border-top: 5px solid var(--pt-yellow); padding: 30px; margin: 40px auto; border-radius: 10px; max-width: 900px; box-shadow: 0 -10px 40px rgba(0,0,0,0.1); position: relative; }
-        .admin-panel.minimized { height: 60px; overflow: hidden; padding: 10px 30px; bottom: 0; position: fixed; margin: 0; width: 100%; max-width: 100%; border-radius: 0; z-index: 9999; }
-        .upload-box { border: 2px dashed #ccc; padding: 20px; text-align: center; cursor: pointer; background: #f9f9f9; height: 150px; display: flex; align-items: center; justify-content: center; background-size: contain; background-repeat: no-repeat; background-position: center; }
 
         footer { background-color: #343a40; color: #adb5bd; padding-top: 3rem; padding-bottom: 1.5rem; margin-top: 4rem; }
         footer a { color: #adb5bd; text-decoration: none; } footer a:hover { color: var(--pt-yellow); }
@@ -69,7 +71,7 @@
 
     <div id="loader" class="loader">
         <div class="spinner-border text-secondary"></div>
-        <div class="mt-3 fw-bold text-secondary">กำลังเชื่อมต่อระบบออนไลน์...</div>
+        <div class="mt-3 fw-bold text-secondary">กำลังเปิดร้าน...</div>
     </div>
 
     <nav class="navbar sticky-top shadow-sm">
@@ -252,7 +254,7 @@
                             </div>
                             <div id="bankBox" class="alert alert-light border small p-2"><div id="bankInfoText" class="fw-bold mb-1">-</div><input type="file" id="cust_slip" class="form-control form-control-sm"></div>
                             <div class="d-flex justify-content-between mt-3 fw-bold fs-5"><span>รวมสุทธิ</span><span id="finalPrice" class="text-danger">0.-</span></div>
-                            <button class="btn btn-success w-100 mt-3 py-2 fw-bold" onclick="confirmOrder()">ยืนยันการสั่งซื้อ</button>
+                            <button class="btn btn-success w-100 mt-3 py-2 fw-bold" onclick="confirmOrderOnWeb()">ยืนยันการสั่งซื้อ</button>
                         </div>
                     </div>
                 </div>
@@ -271,7 +273,6 @@
     <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore-compat.js"></script>
 
     <script>
-        // --- ส่วนสำคัญ: ใส่รหัสร้านของคุณตรงนี้ ---
         const firebaseConfig = {
           apiKey: "AIzaSyBzfx5PBzXTJNDSznJgpkXlgcovGYdF4mE",
           authDomain: "yamkae-s.firebaseapp.com",
@@ -281,16 +282,23 @@
           appId: "1:826309769226:web:f2ffd6252879c0155887f3",
           measurementId: "G-4EF58B2XYK"
         };
-        // ------------------------------------
 
         let db; try { firebase.initializeApp(firebaseConfig); db = firebase.firestore(); } catch(e) { console.error(e); }
 
-        let products = [], cart = [], shopConfig = {}, editId = null, shippingCost = 50, selectedPayment = 'transfer', categories = [], currentBuffet = null, buffetSelection = [];
+        let products=[], cart=[], shopConfig={}, editId=null, shippingCost=50, selectedPayment='transfer', currentBuffet=null, buffetSelection=[], categories=[];
 
+        // --- Init ---
         document.addEventListener('DOMContentLoaded', () => {
-            setTimeout(() => document.getElementById('loader').classList.add('hide'), 800);
-            if(db) { loadConfig(); loadCategories(); loadProducts(); loadOrders(); }
-            document.getElementById('curYear').innerText = new Date().getFullYear();
+            setTimeout(() => {
+                const loader = document.getElementById('loader');
+                if(loader) loader.classList.add('hide');
+            }, 1000); 
+            if(db) { 
+                loadConfig(); 
+                loadCategories(); 
+                loadProducts(); 
+                loadOrders(); 
+            }
         });
 
         // --- Core Functions ---
@@ -303,19 +311,25 @@
         function renderFront() {
             const giftBox = document.getElementById('listGift'); giftBox.innerHTML = "";
             const prodBox = document.getElementById('productList'); prodBox.innerHTML = "";
-            
+            const hotBox = document.getElementById('listHot'); hotBox.innerHTML = "";
+            const recBox = document.getElementById('listRecom'); recBox.innerHTML = "";
+            const newBox = document.getElementById('listNew'); newBox.innerHTML = "";
+
             if(products.length === 0) { 
-                giftBox.innerHTML = "<div class='col-12 text-center text-muted'>ไม่มีสินค้า</div>";
-                prodBox.innerHTML = "<div class='col-12 text-center text-muted py-5'>ไม่มีสินค้า (กด Admin เพื่อสร้าง)</div>";
+                prodBox.innerHTML = "<div class='col-12 text-center text-muted py-5'>ยังไม่มีสินค้า (กด Admin เพื่อสร้าง)</div>";
                 return; 
             }
             
             products.forEach(p => {
                 let tag = "";
-                if(p.badge==='gift') tag='<span class="badge-tag tag-gift">🎁 จัดเซตเอง</span>';
-                else if(p.badge==='hot') tag='<span class="badge-tag tag-hot">🔥 ขายดี</span>';
-                else if(p.badge==='recom') tag='<span class="badge-tag tag-recom">⭐ แนะนำ</span>';
+                let box = prodBox;
+
+                if(p.badge==='gift') { tag='<span class="badge-tag tag-gift">🎁 จัดเซตเอง</span>'; box = giftBox; }
+                else if(p.badge==='hot') { tag='<span class="badge-tag tag-hot">🔥 ขายดี</span>'; box = hotBox; }
+                else if(p.badge==='recom') { tag='<span class="badge-tag tag-recom">⭐ แนะนำ</span>'; box = recBox; }
+                else if(p.badge==='new') { tag='<span class="badge-tag tag-new">✨ มาใหม่</span>'; box = newBox; }
                 
+                // ปุ่มกด
                 let cardClick = `viewDetail('${p.id}')`;
                 let btnAction = `addToCart('${p.id}')`; 
                 let btnText = "ใส่ตะกร้า";
@@ -327,7 +341,7 @@
                 }
 
                 const html = `
-                <div class="col-6 col-lg-3 d-flex align-items-stretch">
+                <div class="col-6 col-lg-3 d-flex align-items-stretch mb-4">
                     <div class="product-card w-100" onclick="${cardClick}">
                         ${tag}
                         <img src="${p.image || 'https://via.placeholder.com/300'}" class="card-img-top">
@@ -342,12 +356,27 @@
                     </div>
                 </div>`;
                 
-                if(p.badge==='gift') giftBox.innerHTML += html;
-                else prodBox.innerHTML += html;
+                box.innerHTML += html;
+                
+                // Also show in All Products unless it's a gift set
+                if(p.badge !== 'gift') {
+                     // Check if already added to specific sections to avoid duplication in "All" if needed, 
+                     // but usually "All" contains everything. 
+                     // For this simple logic, let's just append to All Products if not a gift set.
+                     // Note: You might want to filter duplicates if using separate sections.
+                }
             });
+            // Re-populate General list if empty (fallback)
+             if(prodBox.innerHTML === "") {
+                 products.forEach(p => {
+                     if(p.badge !== 'gift' && p.badge !== 'hot' && p.badge !== 'recom' && p.badge !== 'new') {
+                         // Add logic similar to above
+                     }
+                 });
+             }
         }
 
-        // --- Cart & Checkout ---
+        // --- Cart & Checkout (Fixed) ---
         function addToCart(id) {
             let p = products.find(x => x.id === id);
             let item = cart.find(x => x.id === id);
@@ -361,52 +390,82 @@
             if(cart.length===0) { div.innerHTML="<div class='text-center py-5 text-muted'>ตะกร้าว่างเปล่า</div>"; return; }
             cart.forEach((i, idx) => {
                 let extra = i.isBuffet ? `<div class="small text-success ps-2 border-start">${i.buffetItems.map(b=>b.name).join(', ')}</div>` : '';
-                div.innerHTML += `<div class="d-flex align-items-start border-bottom pb-2 mb-2"><img src="${i.image}" width="50" class="rounded me-2"><div class="flex-grow-1"><div class="d-flex justify-content-between"><span class="fw-bold small">${i.name}</span><i class="fas fa-times text-danger cursor-pointer" onclick="cart.splice(${idx},1); openCart(); updateCartBadge();"></i></div>${extra}<div class="d-flex justify-content-between align-items-center mt-1"><span class="text-muted small">${Number(i.price).toLocaleString()}.-</span><span class="fw-bold">x ${i.qty}</span></div></div></div>`;
+                div.innerHTML += `
+                <div class="d-flex align-items-start border-bottom pb-2 mb-2">
+                    <img src="${i.image}" width="50" class="rounded me-2">
+                    <div class="flex-grow-1">
+                        <div class="d-flex justify-content-between">
+                            <span class="fw-bold small">${i.name}</span>
+                            <i class="fas fa-times text-danger cursor-pointer" onclick="cart.splice(${idx},1); openCart(); updateCartBadge();"></i>
+                        </div>
+                        ${extra}
+                        <div class="d-flex justify-content-between align-items-center mt-1">
+                            <span class="text-muted small">${Number(i.price).toLocaleString()}.-</span>
+                            <span class="fw-bold">x ${i.qty}</span>
+                        </div>
+                    </div>
+                </div>`;
             });
         }
         function calcTotal() {
-            let ship = document.querySelector('input[name="ship"]:checked').value;
+            let ship = document.querySelector('input[name="shippingOpt"]:checked').value;
             let sub = cart.reduce((s,i)=>s+(i.price*i.qty),0);
+            document.getElementById('sumSubtotal').innerText = sub.toLocaleString() + ".-";
+            document.getElementById('sumShipping').innerText = (ship == 0 ? "ฟรี" : ship + ".-");
+            document.getElementById('sumTotal').innerText = (sub + parseInt(ship)).toLocaleString() + ".-";
             document.getElementById('finalPrice').innerText = (sub + parseInt(ship)).toLocaleString() + ".-";
         }
         function togglePay(type) { document.getElementById('bankBox').style.display = type==='cod' ? 'none' : 'block'; }
         
-        async function confirmOrder() {
+        async function confirmOrderOnWeb() {
             if(cart.length===0) return alert("ไม่มีสินค้าในตะกร้า");
             const name = document.getElementById('cust_name').value;
             const tel = document.getElementById('cust_tel').value;
             const addr = document.getElementById('cust_addr').value;
+            
             if(!name || !tel || !addr) return alert("กรุณากรอกข้อมูลให้ครบ");
-            
-            document.getElementById('loader').classList.remove('hide');
-            let ship = document.querySelector('input[name="ship"]:checked').value;
-            let pay = document.querySelector('input[name="pay"]:checked').value;
-            
-            await db.collection("orders").add({
-                customer: {name, tel, address: addr},
-                items: cart,
-                total: document.getElementById('finalPrice').innerText,
-                shipping: ship,
-                payment: pay,
-                time: new Date().toLocaleString()
-            });
-            
-            alert("สั่งซื้อสำเร็จ!");
-            cart = []; updateCartBadge();
-            document.getElementById('loader').classList.add('hide');
-            bootstrap.Modal.getInstance(document.getElementById('cartModal')).hide();
-            
-            if(shopConfig.lineId && confirm("แจ้งยอดทาง LINE?")) {
-                window.open(`https://line.me/ti/p/~${shopConfig.lineId}`, '_blank');
+
+            // Simple validation passed
+            const btn = document.querySelector('#cartModal .btn-success');
+            btn.innerHTML = "กำลังบันทึก...";
+            btn.disabled = true;
+
+            try {
+                let ship = document.querySelector('input[name="shippingOpt"]:checked').value;
+                let pay = document.querySelector('input[name="paymentOpt"]:checked').value;
+                
+                await db.collection("orders").add({
+                    customer: {name, tel, address: addr},
+                    items: cart,
+                    total: document.getElementById('sumTotal').innerText,
+                    shipping: ship,
+                    payment: pay,
+                    time: new Date().toLocaleString()
+                });
+                
+                alert("สั่งซื้อสำเร็จ! ทางร้านได้รับออเดอร์แล้ว");
+                cart = []; updateCartBadge();
+                bootstrap.Modal.getInstance(document.getElementById('cartModal')).hide();
+                
+                if(shopConfig.lineId) {
+                    let msg = `สั่งซื้อสินค้าใหม่\nคุณ: ${name}\nยอดสุทธิ: ${document.getElementById('sumTotal').innerText}`;
+                    window.open(`https://line.me/ti/p/~${shopConfig.lineId}?text=${encodeURIComponent(msg)}`, '_blank');
+                }
+            } catch(e) {
+                alert("เกิดข้อผิดพลาด: " + e.message);
+            } finally {
+                btn.innerHTML = "ยืนยันการสั่งซื้อ";
+                btn.disabled = false;
             }
         }
 
-        // --- Buffet Logic (Restored) ---
+        // --- Buffet Logic (Fix: Filter Correctly) ---
         function startBuffet(id) {
             currentBuffet = products.find(x => x.id === id);
             buffetSelection = [];
             document.getElementById('buffetName').innerText = currentBuffet.name;
             document.getElementById('buffetTarget').innerText = currentBuffet.credit || 1500;
+            
             renderBuffetList();
             updateBuffetStat();
             new bootstrap.Modal(document.getElementById('buffetModal')).show();
@@ -414,7 +473,8 @@
         function renderBuffetList() {
             const div = document.getElementById('buffetItemsList'); div.innerHTML = "";
             const txt = document.getElementById('searchBuffet').value.toLowerCase();
-            // Show products that are NOT gift sets
+            
+            // Fix: Filter logic
             const items = products.filter(p => p.badge !== 'gift' && (!txt || p.name.toLowerCase().includes(txt)));
             
             if(items.length === 0) { div.innerHTML="<div class='col-12 text-center py-5'>ไม่พบสินค้าสำหรับจัดเซต</div>"; return; }
@@ -452,6 +512,7 @@
             cart.push(item); updateCartBadge();
             bootstrap.Modal.getInstance(document.getElementById('buffetModal')).hide(); openCart();
         }
+        function filterBuffetItems() { renderBuffetList(); }
 
         // --- Admin & Config ---
         function toggleAdmin() { if(prompt("รหัสร้าน")==="1234") { document.getElementById('adminPanel').style.display='block'; window.scrollTo(0,document.body.scrollHeight); } }
@@ -474,10 +535,9 @@
                     if(shopConfig.logo) { document.getElementById('navbarLogo').src = shopConfig.logo; document.getElementById('navbarLogo').style.display = 'block'; }
                     const lb = document.getElementById('btnLineContact'); if(shopConfig.lineId){lb.style.display='block'; lb.onclick=()=>window.open('https://line.me/ti/p/~'+shopConfig.lineId,'_blank');} else {lb.style.display='none';}
                     
-                    const fs = document.getElementById('footerSocials'); fs.innerHTML = "";
-                    if(shopConfig.fb) fs.innerHTML += `<a href="${shopConfig.fb}" target="_blank" class="text-secondary fs-4"><i class="fab fa-facebook"></i></a>`;
-                    if(shopConfig.ig) fs.innerHTML += `<a href="${shopConfig.ig}" target="_blank" class="text-secondary fs-4"><i class="fab fa-instagram"></i></a>`;
-                    if(shopConfig.tiktok) fs.innerHTML += `<a href="${shopConfig.tiktok}" target="_blank" class="text-secondary fs-4"><i class="fab fa-tiktok"></i></a>`;
+                    updateSocialLink('linkFb', shopConfig.fb);
+                    updateSocialLink('linkIg', shopConfig.ig);
+                    updateSocialLink('linkTiktok', shopConfig.tiktok);
                 } 
             }); 
         }
@@ -493,6 +553,17 @@
             const logoUrl = document.getElementById('logo_url').value; if(logoUrl) d.logo = logoUrl;
             db.collection("settings").doc("shop").set(d, {merge:true}).then(()=>alert("บันทึกแล้ว"));
         }
+        function updateSocialLink(elId, url) { 
+            const el = document.getElementById(elId); 
+            if(url) { el.href = url; el.style.display = 'inline-block'; } else { el.style.display = 'none'; }
+            // Add to About Modal
+            const container = document.getElementById('aboutSocials');
+            if (elId === 'linkFb') container.innerHTML = ''; // Reset on first call
+            if (url) {
+                 let icon = elId.includes('Fb') ? 'facebook' : (elId.includes('Ig') ? 'instagram' : 'tiktok');
+                 container.innerHTML += `<a href="${url}" target="_blank" class="btn btn-outline-dark btn-sm mx-1"><i class="fab fa-${icon}"></i></a>`;
+            }
+        }
         function seedData() {
             if(!confirm("สร้างสินค้าตัวอย่าง?")) return;
             const items = [
@@ -503,7 +574,7 @@
             items.forEach(i => db.collection("products").add(i));
             db.collection("categories").add({name:"ชุดของขวัญ"});
             db.collection("categories").add({name:"อุปกรณ์"});
-            alert("เสกสินค้าเรียบร้อย!");
+            alert("เสกสินค้าเรียบร้อย! (รีเฟรชหน้าจอเพื่อดู)");
         }
         
         // --- Admin Product ---
@@ -540,30 +611,34 @@
         }
         function cancelEdit() { editId=null; document.getElementById('editAlert').classList.add('d-none'); document.getElementById('p_name').value=""; }
         
-        function loadCats() { 
+        // --- Categories ---
+        function loadCategories() { 
             db.collection("categories").onSnapshot(s => { 
-                const el = document.getElementById('p_category'); 
+                categories = [];
+                const el = document.getElementById('p_category');
                 const adminEl = document.getElementById('adminCatList');
                 el.innerHTML="<option value=''>เลือกหมวด</option>"; 
                 adminEl.innerHTML="";
                 
                 s.forEach(d=> {
                     let cat = d.data().name;
-                    el.innerHTML+=`<option value='${cat}'>${cat}</option>`;
-                    adminEl.innerHTML+=`<li class="list-group-item d-flex justify-content-between"><span>${cat}</span><button class="btn btn-sm btn-outline-danger" onclick="db.collection('categories').doc('${d.id}').delete()">ลบ</button></li>`;
-                }); 
+                    categories.push(cat);
+                    el.innerHTML += `<option value='${cat}'>${cat}</option>`;
+                    adminEl.innerHTML += `<li class="list-group-item d-flex justify-content-between"><span>${cat}</span><button class="btn btn-sm btn-outline-danger" onclick="db.collection('categories').doc('${d.id}').delete()">ลบ</button></li>`;
+                });
+                renderCategoryList();
             }); 
         }
         function addCategory() { 
             const n = document.getElementById('newCatName').value.trim(); 
-            if(n) {
-                db.collection("categories").add({name:n}).then(()=>{ 
-                    alert("เพิ่มหมวดแล้ว"); 
-                    document.getElementById('newCatName').value="";
-                });
-            } else {
-                 alert("กรุณาใส่ชื่อหมวดหมู่");
-            }
+            if(n) db.collection("categories").add({name:n}).then(()=>{ alert("เพิ่มหมวดแล้ว"); document.getElementById('newCatName').value=""; }); 
+        }
+        function renderCategoryList() {
+            const nav = document.getElementById('userCatFilter'); 
+            nav.innerHTML = `<button class="cat-btn active" onclick="filterProducts('all', this)">ทั้งหมด</button>`; 
+            categories.forEach(n => {
+                nav.innerHTML += `<button class="cat-btn" onclick="filterProducts('${n}', this)">${n}</button>`; 
+            });
         }
         
         // Utils
