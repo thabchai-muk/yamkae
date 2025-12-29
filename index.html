@@ -16,7 +16,7 @@
         .is-admin .admin-only { display: block !important; }
         .cursor-pointer { cursor: pointer; }
 
-        /* Navbar & UI */
+        /* Navbar & Loader */
         .navbar { background: white; border-bottom: 4px solid var(--pt-yellow); padding: 10px 0; }
         .shop-logo-img { width: 50px; height: 50px; object-fit: cover; border-radius: 50%; border: 2px solid var(--pt-yellow); margin-right: 10px; display: none; }
         .loader { display: flex; position: fixed; top:0; left:0; width:100%; height:100%; background:rgba(255,255,255,0.98); z-index:9999; justify-content:center; align-items:center; flex-direction: column; transition: opacity 0.5s; }
@@ -25,17 +25,17 @@
         /* Carousel */
         .carousel-item img { height: 450px; object-fit: cover; filter: brightness(0.95); }
 
-        /* Gift Section */
+        /* Gift Section (Animation Style จาก Local) */
         .gift-section { background: linear-gradient(135deg, #fff9c4 0%, #fff3e0 100%); padding: 60px 0; position: relative; overflow: hidden; }
         .gift-section::before { content: '\f06b'; font-family: "Font Awesome 6 Free"; font-weight: 900; position: absolute; top: -20px; right: -20px; font-size: 15rem; color: rgba(245, 223, 77, 0.15); z-index: 0; transform: rotate(-15deg); }
         .gift-header-animate { display: inline-block; animation: float-gift 3s ease-in-out infinite; background: white; padding: 15px 40px; border-radius: 50px; box-shadow: 0 10px 25px rgba(245, 223, 77, 0.4); border: 3px solid var(--pt-yellow); position: relative; z-index: 1; }
         @keyframes float-gift { 0%, 100% { transform: translateY(0) rotate(0); } 50% { transform: translateY(-5px) rotate(2deg); } }
 
         /* Product Card */
-        .product-card { border: 1px solid #eee; border-radius: 12px; background: white; box-shadow: 0 5px 15px rgba(0,0,0,0.05); transition: all 0.3s; cursor: pointer; position: relative; overflow: hidden; height: 100%; }
-        .product-card:hover { transform: translateY(-5px); box-shadow: 0 15px 30px rgba(0,0,0,0.12); border-color: var(--pt-yellow); }
+        .product-card { border: 1px solid #eee; border-radius: 12px; background: white; box-shadow: 0 5px 15px rgba(0,0,0,0.05); transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1); position: relative; cursor: pointer; overflow: hidden; height: 100%; }
+        .product-card:hover { transform: translateY(-8px); box-shadow: 0 15px 30px rgba(0,0,0,0.12); border-color: var(--pt-yellow); }
         .card-img-top { height: 200px; width: 100%; object-fit: contain; background: #fff; padding: 5px; }
-        .badge-tag { position: absolute; top: 10px; left: 10px; padding: 4px 12px; border-radius: 30px; font-size: 0.75rem; color: white; font-weight: bold; box-shadow: 0 2px 5px rgba(0,0,0,0.2); z-index: 2; }
+        .badge-tag { position: absolute; top: 10px; left: 10px; padding: 4px 12px; border-radius: 30px; font-size: 0.75rem; color: white; font-weight: bold; text-transform: uppercase; box-shadow: 0 2px 5px rgba(0,0,0,0.2); z-index: 2; }
         .tag-gift { background: linear-gradient(45deg, #FFD700, #FFA500); color: #000; } 
         .tag-hot { background: var(--pt-red); } .tag-new { background: var(--pt-green); } .tag-recom { background: #0d6efd; } .tag-promo { background: #6f42c1; color: white; }
 
@@ -44,13 +44,8 @@
         .cat-btn { border: 1px solid #ddd; background: white; color: var(--pt-dark); border-radius: 50px; padding: 8px 25px; margin: 0 5px; font-weight: 600; transition: 0.2s; box-shadow: 0 2px 5px rgba(0,0,0,0.05); }
         .cat-btn.active, .cat-btn:hover { background: var(--pt-gray); color: var(--pt-yellow); border-color: var(--pt-gray); box-shadow: 0 4px 10px rgba(0,0,0,0.15); }
         .cart-float { position: fixed; bottom: 30px; right: 30px; background: var(--pt-yellow); color: var(--pt-gray); width: 65px; height: 65px; border-radius: 50%; display: flex; align-items: center; justify-content: center; box-shadow: 0 4px 20px rgba(245, 223, 77, 0.6); cursor: pointer; z-index: 1000; border: 4px solid white; font-weight: bold; font-size: 1.5rem; transition: 0.3s; }
-
-        /* Checkout & Admin */
-        .checkout-card { background: white; padding: 20px; border-radius: 8px; border: 1px solid #eee; margin-bottom: 15px; }
-        .admin-panel { display: none; background: #fff; border-top: 5px solid var(--pt-yellow); padding: 30px; margin: 40px auto; border-radius: 10px; max-width: 900px; box-shadow: 0 -10px 40px rgba(0,0,0,0.1); position: relative; }
-        .upload-box { border: 2px dashed #ccc; padding: 20px; text-align: center; cursor: pointer; background: #f9f9f9; height: 150px; display: flex; align-items: center; justify-content: center; background-size: contain; background-repeat: no-repeat; background-position: center; }
-
-        /* Buffet Item */
+        
+        /* Buffet Styles */
         .buffet-item { cursor: pointer; border: 1px solid #eee; border-radius: 8px; overflow: hidden; position: relative; background:white; transition: 0.2s; }
         .buffet-item:hover { transform: scale(1.02); border-color: var(--pt-yellow); }
         .buffet-item.selected { border: 2px solid var(--pt-green); background-color: #f0fff4; }
@@ -58,6 +53,12 @@
         .buffet-progress { background: #fff3cd; border: 1px dashed #ffc107; border-radius: 8px; padding: 15px; margin-bottom: 15px; text-align: center; }
         .control-panel-sticky { position: sticky; top: 10px; height: calc(100vh - 100px); display: flex; flex-direction: column; overflow-y: auto; }
         .modal-footer-sticky { position: sticky; bottom: 0; background: white; padding: 15px; border-top: 1px solid #eee; z-index: 100; text-align: center; box-shadow: 0 -5px 15px rgba(0,0,0,0.05); }
+
+        /* Checkout & Admin */
+        .checkout-card { background: white; padding: 20px; border-radius: 8px; border: 1px solid #eee; margin-bottom: 15px; }
+        .admin-panel { display: none; background: #fff; border-top: 5px solid var(--pt-yellow); padding: 30px; margin: 40px auto; border-radius: 10px; max-width: 900px; box-shadow: 0 -10px 40px rgba(0,0,0,0.1); position: relative; }
+        .admin-panel.minimized { height: 60px; overflow: hidden; padding: 10px 30px; bottom: 0; position: fixed; margin: 0; width: 100%; max-width: 100%; border-radius: 0; z-index: 9999; }
+        .upload-box { border: 2px dashed #ccc; padding: 20px; text-align: center; cursor: pointer; background: #f9f9f9; height: 150px; display: flex; align-items: center; justify-content: center; background-size: contain; background-repeat: no-repeat; background-position: center; }
 
         footer { background-color: #343a40; color: #adb5bd; padding-top: 3rem; padding-bottom: 1.5rem; margin-top: 4rem; }
         footer a { color: #adb5bd; text-decoration: none; } footer a:hover { color: var(--pt-yellow); }
@@ -68,8 +69,7 @@
 
     <div id="loader" class="loader">
         <div class="spinner-border text-secondary"></div>
-        <div class="mt-3 fw-bold text-secondary">กำลังเชื่อมต่อร้านค้า...</div>
-        <button class="btn btn-sm btn-danger mt-3 px-4 rounded-pill shadow" onclick="document.getElementById('loader').classList.add('hide')">❌ เข้าใช้งานทันที</button>
+        <div class="mt-3 fw-bold text-secondary">กำลังเชื่อมต่อระบบออนไลน์...</div>
     </div>
 
     <nav class="navbar sticky-top shadow-sm">
@@ -153,11 +153,13 @@
                 <div>
                     <button class="btn btn-sm btn-success fw-bold me-2 px-3" onclick="seedData()">✨ สร้างสินค้าตัวอย่าง</button>
                     <button class="btn btn-sm btn-outline-danger fw-bold me-2 px-3" onclick="document.getElementById('adminPanel').style.display='none'">❌ ปิด</button>
+                    <button class="btn btn-sm btn-outline-primary" onclick="toggleAdminMin()">[-] ย่อ</button>
                 </div>
             </div>
             <ul class="nav nav-pills nav-fill mb-4 gap-2">
                 <li class="nav-item"><button class="nav-link active bg-secondary text-white" data-bs-toggle="tab" data-bs-target="#tab-product">สินค้า</button></li>
                 <li class="nav-item"><button class="nav-link bg-light text-dark border" data-bs-toggle="tab" data-bs-target="#tab-orders">ออเดอร์</button></li>
+                <li class="nav-item"><button class="nav-link bg-light text-dark border" data-bs-toggle="tab" data-bs-target="#tab-cat">หมวดหมู่</button></li>
                 <li class="nav-item"><button class="nav-link bg-light text-dark border" data-bs-toggle="tab" data-bs-target="#tab-shop">ตั้งค่า</button></li>
             </ul>
             <div class="tab-content">
@@ -174,6 +176,13 @@
                     </div>
                     <hr>
                     <div class="list-group small" id="adminProductList" style="max-height:300px; overflow-y:auto;"></div>
+                </div>
+                <div class="tab-pane fade" id="tab-cat">
+                    <div class="input-group mb-3">
+                        <input type="text" id="newCatName" class="form-control form-control-sm" placeholder="พิมพ์ชื่อหมวดหมู่...">
+                        <button class="btn btn-success btn-sm" onclick="addCategory()">+ เพิ่ม</button>
+                    </div>
+                    <ul class="list-group small" id="adminCatList"></ul>
                 </div>
                 <div class="tab-pane fade" id="tab-shop">
                     <div class="row g-2">
@@ -269,8 +278,8 @@
 
         document.addEventListener('DOMContentLoaded', () => {
             setTimeout(() => document.getElementById('loader').classList.add('hide'), 800);
-            document.getElementById('curYear').innerText = new Date().getFullYear();
             if(db) { loadConfig(); loadCategories(); loadProducts(); loadOrders(); }
+            document.getElementById('curYear').innerText = new Date().getFullYear();
         });
 
         // --- Core Functions ---
@@ -294,6 +303,7 @@
                 let tag = "";
                 if(p.badge==='gift') tag='<span class="badge-tag tag-gift">🎁 จัดเซตเอง</span>';
                 else if(p.badge==='hot') tag='<span class="badge-tag tag-hot">🔥 ขายดี</span>';
+                else if(p.badge==='recom') tag='<span class="badge-tag tag-recom">⭐ แนะนำ</span>';
                 
                 let cardClick = `viewDetail('${p.id}')`;
                 let btnAction = `addToCart('${p.id}')`; 
@@ -351,7 +361,7 @@
         function togglePay(type) { document.getElementById('bankBox').style.display = type==='cod' ? 'none' : 'block'; }
         
         async function confirmOrder() {
-            if(cart.length===0) return alert("ไม่มีสินค้า");
+            if(cart.length===0) return alert("ไม่มีสินค้าในตะกร้า");
             const name = document.getElementById('cust_name').value;
             const tel = document.getElementById('cust_tel').value;
             const addr = document.getElementById('cust_addr').value;
@@ -482,15 +492,27 @@
             items.forEach(i => db.collection("products").add(i));
             db.collection("categories").add({name:"ชุดของขวัญ"});
             db.collection("categories").add({name:"อุปกรณ์"});
-            alert("เสกสินค้าเรียบร้อย! (รีเฟรชหน้าจอเพื่อดู)");
+            alert("เสกสินค้าเรียบร้อย!");
         }
         
         // --- Admin Product ---
         function renderAdminProducts() {
             const div = document.getElementById('adminProductList'); div.innerHTML = "";
             products.forEach(p => {
-                div.innerHTML += `<div class="list-group-item d-flex justify-content-between align-items-center"><span>${p.name}</span><button class="btn btn-sm btn-outline-danger" onclick="db.collection('products').doc('${p.id}').delete()">ลบ</button></div>`;
+                div.innerHTML += `<div class="list-group-item d-flex justify-content-between align-items-center"><span>${p.name}</span><div><button class="btn btn-sm btn-warning me-1" onclick="editProduct('${p.id}')">✏️</button><button class="btn btn-sm btn-outline-danger" onclick="db.collection('products').doc('${p.id}').delete()">🗑️</button></div></div>`;
             });
+        }
+        function editProduct(id) {
+            const p = products.find(x=>x.id===id); if(!p)return;
+            document.getElementById('p_name').value=p.name;
+            document.getElementById('p_price').value=p.price;
+            document.getElementById('p_badge').value=p.badge;
+            document.getElementById('p_category').value=p.category;
+            document.getElementById('p_credit').value=p.credit;
+            editId=id; 
+            document.getElementById('editAlert').classList.remove('d-none');
+            document.getElementById('adminPanel').classList.remove('minimized');
+            document.getElementById('adminPanel').style.display='block';
         }
         function saveProduct() {
             let data = {
@@ -501,9 +523,26 @@
                 image: document.getElementById('p_image').value || document.getElementById('p_base64_storage').value,
                 credit: document.getElementById('p_credit').value
             };
-            db.collection("products").add(data).then(()=>alert("เพิ่มสินค้าแล้ว"));
+            if(editId) db.collection("products").doc(editId).update(data).then(()=>alert("แก้ไขแล้ว"));
+            else db.collection("products").add(data).then(()=>alert("เพิ่มสินค้าแล้ว"));
+            cancelEdit();
         }
-        function loadCats() { db.collection("categories").onSnapshot(s => { const el = document.getElementById('p_category'); el.innerHTML="<option value=''>เลือกหมวด</option>"; s.forEach(d=> el.innerHTML+=`<option value='${d.data().name}'>${d.data().name}</option>`); }); }
+        function cancelEdit() { editId=null; document.getElementById('editAlert').classList.add('d-none'); document.getElementById('p_name').value=""; }
+        
+        function loadCats() { 
+            db.collection("categories").onSnapshot(s => { 
+                const el = document.getElementById('p_category'); 
+                const adminEl = document.getElementById('adminCatList');
+                el.innerHTML="<option value=''>เลือกหมวด</option>"; 
+                adminEl.innerHTML="";
+                
+                s.forEach(d=> {
+                    let cat = d.data().name;
+                    el.innerHTML+=`<option value='${cat}'>${cat}</option>`;
+                    adminEl.innerHTML+=`<li class="list-group-item d-flex justify-content-between"><span>${cat}</span><button class="btn btn-sm btn-outline-danger" onclick="db.collection('categories').doc('${d.id}').delete()">ลบ</button></li>`;
+                }); 
+            }); 
+        }
         function addCategory() { const n = document.getElementById('newCatName').value; if(n) db.collection("categories").add({name:n}); }
         
         // Utils
@@ -518,7 +557,7 @@
             document.getElementById('d_price').innerText = p.price + ".-";
             document.getElementById('d_desc').innerText = p.desc || "";
             document.getElementById('d_btn').onclick = () => { addToCart(id); bootstrap.Modal.getInstance(document.getElementById('productDetailModal')).hide(); };
-            new bootstrap.Modal(document.getElementById('productDetailModal')).show();
+            new bootstrap.Modal(document.getElementById('productDetailModal')).show(); 
         }
         async function previewImage(input) { if (input.files && input.files[0]) { try { const base64 = await resizeAndConvertToBase64(input.files[0]); document.getElementById('uploadZone').style.backgroundImage = `url(${base64})`; document.getElementById('p_base64_storage').value = base64; } catch(e) { alert("รูปภาพมีปัญหา: " + e); } } }
         async function resizeAndConvertToBase64(file) { return new Promise((resolve, reject) => { const reader = new FileReader(); reader.readAsDataURL(file); reader.onload = (event) => { const img = new Image(); img.src = event.target.result; img.onload = () => { const canvas = document.createElement('canvas'); const ctx = canvas.getContext('2d'); const maxWidth = 500; const scaleSize = maxWidth / img.width; canvas.width = maxWidth; canvas.height = img.height * scaleSize; ctx.drawImage(img, 0, 0, canvas.width, canvas.height); resolve(canvas.toDataURL('image/jpeg', 0.6)); }; img.onerror = reject; }; }); }
