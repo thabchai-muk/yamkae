@@ -284,7 +284,7 @@
 
     <div class="modal fade" id="aboutModal" tabindex="-1"><div class="modal-dialog modal-dialog-centered"><div class="modal-content"><div class="modal-header bg-warning"><h5 class="modal-title fw-bold text-dark">เกี่ยวกับร้านค้า</h5><button type="button" class="btn-close" data-bs-dismiss="modal"></button></div><div class="modal-body text-center p-4"><img id="aboutLogo" src="" class="rounded-circle border border-3 border-warning mb-3" style="width:100px;height:100px;object-fit:cover;display:none;"><h4 id="aboutName" class="fw-bold"></h4><p id="aboutDesc" class="text-muted"></p><hr><p class="mb-2"><i class="fas fa-phone-alt text-warning"></i> <span id="aboutPhone"></span></p><p class="mb-3"><i class="fab fa-line text-success"></i> <span id="aboutLine"></span></p><div class="d-flex justify-content-center gap-2" id="aboutSocials"></div><div class="alert alert-light border text-start small mt-3" id="aboutPayment"></div></div></div></div></div>
     
-    <div class="modal fade" id="productDetailModal" tabindex="-1"><div class="modal-dialog modal-lg modal-dialog-centered"><div class="modal-content border-0 rounded-4 overflow-hidden"><div class="modal-header border-0 position-absolute end-0 top-0 z-3"><button type="button" class="btn-close bg-white p-2 m-2 shadow-sm rounded-circle" data-bs-dismiss="modal"></button></div><div class="modal-body p-0"><div class="row g-0"><div class="col-md-6 bg-light d-flex align-items-center justify-content-center"><img id="detailImg" src="" class="img-fluid" style="max-height:400px;" onerror="this.src='https://via.placeholder.com/400?text=No+Image'"></div><div class="col-md-6 p-4 d-flex flex-column"><span id="detailCat" class="badge bg-secondary align-self-start mb-2"></span><h3 id="detailName" class="fw-bold mb-3"></h3><div id="detailPriceBox" class="mb-3"></div><p id="detailDesc" class="text-muted flex-grow-1 small" style="white-space: pre-line;"></p><div id="detailVideo" class="mb-3"></div><button id="detailAddBtn" class="btn btn-warning w-100 py-3 fw-bold text-dark shadow-sm rounded-pill mt-auto">ใส่ตะกร้า</button></div></div></div></div></div></div>
+    <div class="modal fade" id="productDetailModal" tabindex="-1"><div class="modal-dialog modal-lg modal-dialog-centered"><div class="modal-content border-0 rounded-4 overflow-hidden"><div class="modal-header border-0 position-absolute end-0 top-0 z-3"><button type="button" class="btn-close bg-white p-2 m-2 shadow-sm rounded-circle" data-bs-dismiss="modal"></button></div><div class="modal-body p-0"><div class="row g-0"><div class="col-md-6 bg-light d-flex align-items-center justify-content-center"><img id="detailImg" src="" class="img-fluid" style="max-height:400px;" onerror="this.src='https://placehold.co/600x400?text=No+Image'"></div><div class="col-md-6 p-4 d-flex flex-column"><span id="detailCat" class="badge bg-secondary align-self-start mb-2"></span><h3 id="detailName" class="fw-bold mb-3"></h3><div id="detailPriceBox" class="mb-3"></div><p id="detailDesc" class="text-muted flex-grow-1 small" style="white-space: pre-line;"></p><div id="detailVideo" class="mb-3"></div><button id="detailAddBtn" class="btn btn-warning w-100 py-3 fw-bold text-dark shadow-sm rounded-pill mt-auto">ใส่ตะกร้า</button></div></div></div></div></div></div>
 
     <div class="modal fade" id="buffetModal" tabindex="-1" data-bs-backdrop="static"><div class="modal-dialog modal-xl modal-dialog-centered modal-dialog-scrollable"><div class="modal-content"><div class="modal-header bg-warning"><h5 class="modal-title fw-bold"><i class="fas fa-gift"></i> จัดชุดของขวัญ: <span id="buffetName"></span></h5><button type="button" class="btn-close" data-bs-dismiss="modal"></button></div><div class="modal-body bg-light p-0"><div class="row g-0"><div class="col-lg-8 p-3" style="max-height: 70vh; overflow-y: auto;"><div class="card border-0 shadow-sm mb-3 sticky-top" style="top:0; z-index:5;"><div class="card-body p-2"><div class="d-flex justify-content-between align-items-center mb-2"><small>วงเงินเครดิต:</small> <span class="fw-bold text-primary" id="buffetTarget">0</span></div><input type="text" id="searchBuffet" class="form-control border-0" placeholder="🔍 ค้นหาสินค้าที่จะใส่กล่อง..." onkeyup="filterBuffetItems()"></div></div><div class="row g-2" id="buffetItemsList"></div></div><div class="col-lg-4 bg-white border-start p-0"><div class="control-panel-sticky p-3"><div class="buffet-progress"><div class="small fw-bold">มูลค่าสินค้าในกล่อง</div><h3 class="fw-bold text-primary mb-0"><span id="buffetCurrentTotal">0</span> / <span id="buffetMaxTotal">0</span></h3><div class="progress mt-2" style="height: 10px;"><div id="buffetProgressBar" class="progress-bar bg-success" style="width: 0%"></div></div><div class="small text-danger mt-1 fw-bold" id="buffetWarning"></div></div><hr><div class="mb-3"><label class="fw-bold small">เลือกแบบกล่อง</label><select id="buffetBoxStyle" class="form-select form-select-sm"><option value="โบว์แดง">🎁 กล่องพรีเมียม (โบว์แดง)</option><option value="โบว์ทอง">🎁 กล่องหรูหรา (โบว์ทอง)</option><option value="กล่องไม้">🪵 กล่องไม้ (วินเทจ)</option></select></div><div class="mb-3"><label class="fw-bold small">ข้อความการ์ด</label><textarea id="buffetCardMsg" class="form-control form-control-sm" rows="3" placeholder="ฝากข้อความถึงผู้รับ..."></textarea></div></div><div class="modal-footer-sticky mt-auto"><button class="btn btn-success w-100 fw-bold py-3 shadow-sm" id="btnFinishBuffet" onclick="finishBuffet()" disabled><i class="fas fa-check-circle"></i> ยืนยันการจัดเซต</button></div></div></div></div></div></div></div></div>
 
@@ -308,7 +308,7 @@
         import { initializeApp } from "https://www.gstatic.com/firebasejs/9.22.2/firebase-app.js";
         import { getFirestore, collection, addDoc, getDocs, doc, updateDoc, deleteDoc, onSnapshot, query, orderBy } from "https://www.gstatic.com/firebasejs/9.22.2/firebase-firestore.js";
 
-        // รหัสของคุณ (ใช้ได้เลย)
+        // รหัสของคุณ
         const firebaseConfig = {
             apiKey: "AIzaSyAPeCIM3yiPXwBWUFZhKPvkeClgPlyb_YU",
             authDomain: "shopyamkae.firebaseapp.com",
@@ -342,10 +342,11 @@
                 loadShopConfig();
             } catch(e) {
                 console.error("Init Error:", e);
-                // ถ้าโหลดไม่ได้ แสดงว่ายังไม่ได้เปิด Rules
-                alert("⚠️ ไม่สามารถโหลดข้อมูลได้!\n\nกรุณาไปที่ Firebase Console > Firestore Database > Rules\nแล้วแก้เป็น 'allow read, write: if true;' แล้วกด Publish ครับ");
+                // ไม่แจ้งเตือนซ้ำซ้อน
+            } finally {
+                // บังคับปิด Loader เสมอ ไม่ว่าอะไรจะเกิดขึ้น
+                setTimeout(() => { document.getElementById('loader').classList.add('hide'); }, 500);
             }
-            document.getElementById('loader').classList.add('hide');
             document.getElementById('curYear').innerText = new Date().getFullYear();
         });
 
@@ -360,7 +361,7 @@
                 });
                 updateAllProductUI();
             } catch (error) {
-                throw error; // ส่ง error ไปให้ catch ด้านบนจัดการ
+                throw error;
             }
         }
 
@@ -405,7 +406,7 @@
             });
         }
 
-        // --- Save Product (Database Mode: No Storage Required) ---
+        // --- Save Product (Database Mode: No Storage Required + Auto Resize) ---
         window.saveProduct = async function() {
             const btn = document.getElementById('saveBtn');
             const name = document.getElementById('p_name').value.trim();
@@ -428,7 +429,7 @@
                     badge: document.getElementById('p_badge').value || "",
                     desc: document.getElementById('p_desc').value || "",
                     video: document.getElementById('p_video').value || "",
-                    link: document.getElementById('p_link').value || "", // เพิ่มลิงก์สินค้า
+                    link: document.getElementById('p_link').value || "",
                     credit: Number(document.getElementById('p_credit').value) || 0,
                     image: finalImageUrl,
                     updatedAt: new Date()
@@ -455,22 +456,47 @@
             }
         }
 
-        // --- Helper Functions ---
+        // --- Auto Resize Image Function (ระบบย่อรูปอัตโนมัติ) ---
         window.previewImage = function(input) {
             if (input.files && input.files[0]) {
-                if(input.files[0].size > 1000000) { alert("⚠️ รูปใหญ่เกิน 1MB อาจบันทึกไม่ได้"); }
+                const file = input.files[0];
                 const reader = new FileReader();
                 reader.onload = function(e) {
-                    const zone = document.getElementById('uploadZone');
-                    zone.style.backgroundImage = `url(${e.target.result})`;
-                    zone.style.backgroundSize = 'contain';
-                    zone.style.backgroundRepeat = 'no-repeat';
-                    zone.style.backgroundPosition = 'center';
-                    document.getElementById('uploadText').style.display = 'none';
-                    document.getElementById('btnRemoveImg').classList.remove('d-none');
-                    document.getElementById('p_image_url').value = e.target.result; // Store Base64
+                    const img = new Image();
+                    img.src = e.target.result;
+                    img.onload = function() {
+                        const canvas = document.createElement('canvas');
+                        const ctx = canvas.getContext('2d');
+                        
+                        // กำหนดขนาดสูงสุด (800px) เพื่อให้ไฟล์เล็ก
+                        const MAX_WIDTH = 800;
+                        let width = img.width;
+                        let height = img.height;
+
+                        if (width > MAX_WIDTH) {
+                            height *= MAX_WIDTH / width;
+                            width = MAX_WIDTH;
+                        }
+
+                        canvas.width = width;
+                        canvas.height = height;
+                        ctx.drawImage(img, 0, 0, width, height);
+
+                        // บีบอัดเป็น JPEG คุณภาพ 70%
+                        const resizedBase64 = canvas.toDataURL('image/jpeg', 0.7);
+                        
+                        // แสดงรูปและเก็บค่า
+                        const zone = document.getElementById('uploadZone');
+                        zone.style.backgroundImage = `url(${resizedBase64})`;
+                        zone.style.backgroundSize = 'contain';
+                        zone.style.backgroundRepeat = 'no-repeat';
+                        zone.style.backgroundPosition = 'center';
+                        document.getElementById('uploadText').style.display = 'none';
+                        document.getElementById('btnRemoveImg').classList.remove('d-none');
+                        document.getElementById('p_image_url').value = resizedBase64;
+                    };
                 }
-                reader.readAsDataURL(input.files[0]);
+                reader.readAsDataURL(file);
             }
         }
 
@@ -597,7 +623,6 @@
             window.categories.forEach((c) => {
                 nav.innerHTML += `<button class="cat-btn" onclick="filterProducts('${c.name}', this)">${c.name}</button>`; 
                 sel.innerHTML += `<option value="${c.name}">${c.name}</option>`; 
-                // เพิ่มปุ่ม Edit/Delete
                 adminList.innerHTML += `
                 <li class="list-group-item d-flex justify-content-between align-items-center">
                     ${c.name}
@@ -625,8 +650,21 @@
                  const reader = new FileReader();
                  reader.readAsDataURL(slipFile);
                  reader.onload = async function () {
-                     slipUrl = reader.result;
-                     await submitOrder(name, tel, addr, slipUrl);
+                     // ย่อสลิปด้วย (กันเหนียว)
+                     const img = new Image();
+                     img.src = reader.result;
+                     img.onload = function() {
+                        const canvas = document.createElement('canvas');
+                        const ctx = canvas.getContext('2d');
+                        const MAX_WIDTH = 600;
+                        let width = img.width;
+                        let height = img.height;
+                        if (width > MAX_WIDTH) { height *= MAX_WIDTH / width; width = MAX_WIDTH; }
+                        canvas.width = width; canvas.height = height;
+                        ctx.drawImage(img, 0, 0, width, height);
+                        slipUrl = canvas.toDataURL('image/jpeg', 0.6);
+                        submitOrder(name, tel, addr, slipUrl);
+                     }
                  };
             } else {
                 await submitOrder(name, tel, addr, "");
@@ -675,18 +713,18 @@
             list.forEach(p => { 
                 let card = createProductCard(p, p.badge == 'gift' ? 'col-lg-6' : 'col-lg-4'); 
                 if(p.badge == 'gift') giftDiv.innerHTML += card; else if(p.badge == 'hot') hotDiv.innerHTML += card; else if(p.badge == 'recom') recomDiv.innerHTML += card; else if(p.badge == 'new') newDiv.innerHTML += card; 
-                if(p.price === 0) { let vidBtn = p.video ? `<a href="${p.video}" target="_blank" class="btn btn-sm btn-danger rounded-pill w-100 mb-2">ชมคลิป</a>` : ""; blogDiv.innerHTML += `<div class="col-md-4 mb-4"><div class="blog-card h-100" onclick="openDetail('${p.id}')"><img src="${p.image||'https://via.placeholder.com/300'}" class="blog-img"><div class="blog-content"><div class="fw-bold mb-2">${p.name}</div><p class="small text-muted text-truncate">${p.desc||""}</p><div class="mt-auto">${vidBtn}</div></div></div></div>`; } 
+                if(p.price === 0) { let vidBtn = p.video ? `<a href="${p.video}" target="_blank" class="btn btn-sm btn-danger rounded-pill w-100 mb-2">ชมคลิป</a>` : ""; blogDiv.innerHTML += `<div class="col-md-4 mb-4"><div class="blog-card h-100" onclick="openDetail('${p.id}')"><img src="${p.image||'https://placehold.co/400'}" class="blog-img"><div class="blog-content"><div class="fw-bold mb-2">${p.name}</div><p class="small text-muted text-truncate">${p.desc||""}</p><div class="mt-auto">${vidBtn}</div></div></div></div>`; } 
             }); 
         }
         window.createProductCard = function(p, colClass='col-lg-4') { 
-            let img = p.image || "https://via.placeholder.com/300"; 
+            let img = p.image || "https://placehold.co/400x300?text=No+Image"; 
             let tag = ""; if(p.badge === 'gift') tag = '<span class="badge-tag tag-gift">🎁 จัดเซตเอง</span>'; else if(p.badge === 'hot') tag = '<span class="badge-tag tag-hot">🔥 ขายดี</span>'; else if(p.badge === 'new') tag = '<span class="badge-tag tag-new">✨ มาใหม่</span>'; else if(p.badge === 'recom') tag = '<span class="badge-tag tag-recom">⭐ แนะนำ</span>'; 
             let cardClick = `openDetail('${p.id}')`; let btnAction = `addToCart('${p.id}')`; let btnText = "ใส่ตะกร้า"; 
             if(p.badge === 'gift') { cardClick = `openBuffetModal('${p.id}')`; btnAction = `openBuffetModal('${p.id}')`; btnText = "จัดเซตเลย"; } 
-            return `<div class="col-6 ${colClass} d-flex align-items-stretch"><div class="product-card w-100 d-flex flex-column" onclick="${cardClick}">${tag}<img src="${img}" class="card-img-top" onerror="this.src='https://via.placeholder.com/300?text=No+Image'"><div class="p-3 d-flex flex-column flex-grow-1"><span class="badge bg-light text-dark border mb-2 align-self-start">${p.category||"ทั่วไป"}</span><h6 class="mb-2 fw-bold card-title-fixed">${p.name}</h6><div class="mt-auto"><div class="mb-2 text-danger fw-bold fs-5">${p.price.toLocaleString()}.-</div><button class="btn btn-warning btn-sm w-100 fw-bold rounded-pill shadow-sm" onclick="event.stopPropagation(); ${btnAction}">${btnText}</button></div></div></div></div>`; 
+            return `<div class="col-6 ${colClass} d-flex align-items-stretch"><div class="product-card w-100 d-flex flex-column" onclick="${cardClick}">${tag}<img src="${img}" class="card-img-top" onerror="this.src='https://placehold.co/400x300?text=No+Image'"><div class="p-3 d-flex flex-column flex-grow-1"><span class="badge bg-light text-dark border mb-2 align-self-start">${p.category||"ทั่วไป"}</span><h6 class="mb-2 fw-bold card-title-fixed">${p.name}</h6><div class="mt-auto"><div class="mb-2 text-danger fw-bold fs-5">${p.price.toLocaleString()}.-</div><button class="btn btn-warning btn-sm w-100 fw-bold rounded-pill shadow-sm" onclick="event.stopPropagation(); ${btnAction}">${btnText}</button></div></div></div></div>`; 
         }
         window.renderAllProducts = function(list) { const div = document.getElementById('productList'); div.innerHTML = ""; if(list.length===0){div.innerHTML='<div class="col-12 text-center text-muted">ไม่มีสินค้าในหมวดนี้</div>';return;} list.forEach(p => { if(p.price>0 && p.badge !== 'gift') div.innerHTML += createProductCard(p); }); }
-        window.renderAdminList = function(list) { const div = document.getElementById('adminProductList'); div.innerHTML = ""; if(list.length === 0) { div.innerHTML = "<div class='text-center text-muted p-3'>ไม่มีสินค้า</div>"; return; } list.forEach(p => { div.innerHTML += `<div class="list-group-item d-flex justify-content-between align-items-center"><div class="d-flex align-items-center"><img src="${p.image||'https://via.placeholder.com/50'}" style="width:40px;height:40px;object-fit:cover;margin-right:10px;border-radius:4px;"><span class="text-truncate" style="max-width:150px;">${p.name}</span> <span class="badge bg-secondary ms-2">${p.price}</span></div><div><button class="btn btn-sm btn-warning me-1" onclick="editProduct('${p.id}')"><i class="fas fa-pen"></i></button><button class="btn btn-sm btn-outline-danger" onclick="deleteProduct('${p.id}')"><i class="fas fa-trash"></i></button></div></div>`; }); }
+        window.renderAdminList = function(list) { const div = document.getElementById('adminProductList'); div.innerHTML = ""; if(list.length === 0) { div.innerHTML = "<div class='text-center text-muted p-3'>ไม่มีสินค้า</div>"; return; } list.forEach(p => { div.innerHTML += `<div class="list-group-item d-flex justify-content-between align-items-center"><div class="d-flex align-items-center"><img src="${p.image||'https://placehold.co/50'}" style="width:40px;height:40px;object-fit:cover;margin-right:10px;border-radius:4px;"><span class="text-truncate" style="max-width:150px;">${p.name}</span> <span class="badge bg-secondary ms-2">${p.price}</span></div><div><button class="btn btn-sm btn-warning me-1" onclick="editProduct('${p.id}')"><i class="fas fa-pen"></i></button><button class="btn btn-sm btn-outline-danger" onclick="deleteProduct('${p.id}')"><i class="fas fa-trash"></i></button></div></div>`; }); }
         
         window.addToCart = function(id) { const p=window.products.find(x=>x.id===id); let exist=window.cart.find(x=>x.id===id); if(exist){exist.qty++;}else{window.cart.push({...p,qty:1});} updateCartUI(); openCart(); }
         window.removeFromCart = function(i) { window.cart.splice(i,1); updateCartUI(); }
@@ -711,7 +749,6 @@
         window.filterProducts = function(cat, btn) { document.querySelectorAll('.cat-btn').forEach(b=>b.classList.remove('active')); btn.classList.add('active'); const h=document.getElementById('highlightZone'); const g=document.getElementById('giftSection'); if(cat==='all'){h.style.display='block'; g.style.display='block'; renderAllProducts(window.products);} else{h.style.display='none'; g.style.display='none'; renderAllProducts(window.products.filter(p=>(p.category||"").trim()===cat.trim()));} }
         window.openDetail = function(id) { const p=window.products.find(x=>x.id===id); if(!p)return; document.getElementById('detailImg').src=p.image||"https://via.placeholder.com/300"; document.getElementById('detailName').innerText=p.name; document.getElementById('detailCat').innerText=p.category||"ทั่วไป"; let pr=p.price.toLocaleString()+" บาท"; if(p.badge==='gift'||p.badge==='promo') pr="โปรโมชั่น"; else if(p.price_full>p.price) pr=`<s class="text-muted me-2">${p.price_full}</s> <span class="text-danger fs-3 fw-bold">${p.price}.-</span>`; document.getElementById('detailPriceBox').innerHTML=pr; 
         
-        // Show Link Button if exists
         let linkBtn = "";
         if(p.link) { linkBtn = `<a href="${p.link}" target="_blank" class="btn btn-outline-primary w-100 mb-2"><i class="fas fa-external-link-alt"></i> ดูรูปเพิ่มเติม (Line/FB)</a>`; }
 
