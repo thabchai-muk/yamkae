@@ -314,7 +314,7 @@
         import { getFirestore, collection, addDoc, getDocs, doc, updateDoc, deleteDoc, onSnapshot, query, orderBy } from "https://www.gstatic.com/firebasejs/9.22.2/firebase-firestore.js";
         import { getStorage, ref, uploadBytes, getDownloadURL } from "https://www.gstatic.com/firebasejs/9.22.2/firebase-storage.js";
 
-        // Config ของคุณ (ใส่ให้แล้ว)
+        // 🔥 ใส่รหัสของคุณให้แล้วนะครับ
         const firebaseConfig = {
             apiKey: "AIzaSyAPeCIM3yiPXwBWUFZhKPvkeClgPlyb_YU",
             authDomain: "shopyamkae.firebaseapp.com",
@@ -342,7 +342,9 @@
         let selectedPayment = 'transfer';
         let currentBuffet = null;
         let buffetSelection = [];
-        let tempImageFile = null;
+        
+        // ตัวแปรเก็บไฟล์รูปภาพ
+        window.tempImageFile = null;
 
         // --- Start Up ---
         document.addEventListener('DOMContentLoaded', async function() {
@@ -400,12 +402,12 @@
             });
         }
 
-        // --- (UPDATED) Product Management Logic ---
+        // --- (UPDATED) Product Management Logic (แก้ให้แล้ว) ---
         
         // 1. Image Preview
         window.previewImage = function(input) {
             if (input.files && input.files[0]) {
-                tempImageFile = input.files[0];
+                window.tempImageFile = input.files[0];
                 const reader = new FileReader();
                 reader.onload = function(e) {
                     const zone = document.getElementById('uploadZone');
@@ -422,13 +424,12 @@
 
         // 2. Remove Image
         window.removeImage = function() {
-            tempImageFile = null;
+            window.tempImageFile = null;
             document.getElementById('p_file').value = "";
             const zone = document.getElementById('uploadZone');
             zone.style.backgroundImage = 'none';
             document.getElementById('uploadText').style.display = 'flex';
             document.getElementById('btnRemoveImg').classList.add('d-none');
-            // Note: We keep p_image_url until save is pressed, or clear it if needed logic requires
         }
 
         // 3. Price Calculation
@@ -459,10 +460,10 @@
                 let finalImageUrl = document.getElementById('p_image_url').value;
                 
                 // Upload new image if selected
-                if (tempImageFile) {
-                    const fileName = `products/${Date.now()}_${tempImageFile.name}`;
+                if (window.tempImageFile) {
+                    const fileName = `products/${Date.now()}_${window.tempImageFile.name}`;
                     const storageRef = ref(storage, fileName);
-                    await uploadBytes(storageRef, tempImageFile);
+                    await uploadBytes(storageRef, window.tempImageFile);
                     finalImageUrl = await getDownloadURL(storageRef);
                 }
 
@@ -494,7 +495,8 @@
 
             } catch (e) {
                 console.error("Error saving product: ", e);
-                alert("❌ เกิดข้อผิดพลาดในการบันทึก: " + e.message);
+                // แจ้งเตือนสาเหตุที่หมุนตลอด
+                alert("❌ บันทึกไม่สำเร็จ: " + e.message + "\n\n⚠️ ถ้าขึ้น Permission denied ต้องไปแก้ Rules ใน Firebase Console ครับ");
             } finally {
                 btn.disabled = false;
                 btn.innerHTML = '<i class="fas fa-save me-1"></i> บันทึกสินค้า';
@@ -542,7 +544,7 @@
         // 6. Cancel Edit
         window.cancelEdit = function() {
             window.editId = null;
-            tempImageFile = null;
+            window.tempImageFile = null;
             
             const ids = ['p_name', 'p_price', 'p_price_full', 'p_discount', 'p_category', 'p_badge', 'p_desc', 'p_video', 'p_credit', 'p_file', 'p_image_url'];
             ids.forEach(id => document.getElementById(id).value = "");
