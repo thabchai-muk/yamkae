@@ -271,7 +271,18 @@
     <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore-compat.js"></script>
 
     <script>
-        const firebaseConfig = { apiKey: "AIzaSyBzfx5PBzXTJNDSznJgpkXlgcovGYdF4mE", authDomain: "yamkae-s.firebaseapp.com", projectId: "yamkae-s", storageBucket: "yamkae-s.firebasestorage.app", messagingSenderId: "826309769226", appId: "1:826309769226:web:f2ffd6252879c0155887f3", measurementId: "G-4EF58B2XYK" };
+        // --- ส่วนสำคัญ: ใส่รหัสร้านของคุณตรงนี้ ---
+        const firebaseConfig = {
+          apiKey: "AIzaSyBzfx5PBzXTJNDSznJgpkXlgcovGYdF4mE",
+          authDomain: "yamkae-s.firebaseapp.com",
+          projectId: "yamkae-s",
+          storageBucket: "yamkae-s.firebasestorage.app",
+          messagingSenderId: "826309769226",
+          appId: "1:826309769226:web:f2ffd6252879c0155887f3",
+          measurementId: "G-4EF58B2XYK"
+        };
+        // ------------------------------------
+
         let db; try { firebase.initializeApp(firebaseConfig); db = firebase.firestore(); } catch(e) { console.error(e); }
 
         let products = [], cart = [], shopConfig = {}, editId = null, shippingCost = 50, selectedPayment = 'transfer', categories = [], currentBuffet = null, buffetSelection = [];
@@ -543,7 +554,17 @@
                 }); 
             }); 
         }
-        function addCategory() { const n = document.getElementById('newCatName').value; if(n) db.collection("categories").add({name:n}); }
+        function addCategory() { 
+            const n = document.getElementById('newCatName').value.trim(); 
+            if(n) {
+                db.collection("categories").add({name:n}).then(()=>{ 
+                    alert("เพิ่มหมวดแล้ว"); 
+                    document.getElementById('newCatName').value="";
+                });
+            } else {
+                 alert("กรุณาใส่ชื่อหมวดหมู่");
+            }
+        }
         
         // Utils
         function searchProduct() { const t=document.getElementById('searchInput').value.toLowerCase(); renderAllProducts(products.filter(p=>p.name.toLowerCase().includes(t))); }
